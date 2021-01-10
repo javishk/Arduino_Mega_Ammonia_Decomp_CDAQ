@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="8C2E8541D0217E152340333EBEB04F0C4ADCD65F73DAC194F1D3E7DA0DA169FD97B02CEA845B9B5AC24F94593CF923FC8CABA5DED6486F533606AAA4FF305CEC" Timestamp="1D6E38F1EF2403E" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="LabVIEW Virtual Instrument" Name="http://www.ni.com/LabVIEW.VI" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Common language components" Name="http://www.ni.com/MocCommon" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Editor" Name="http://www.ni.com/PanelCommon" OldestCompatibleVersion="6.1.0.0" Version="6.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ApplicationVersionInfo Build="8.1.0.50414" Name="LabVIEW NXG" Version="5.0.0" />
+	</SourceModelFeatureSet>
+	<VirtualInstrument Id="e9144724a2124f12ace70aee239adf8d" xmlns="http://www.ni.com/LabVIEW.VI">
+		<Icon Id="9ac5725c80c34a5c8bed5c947f4f11d9" ListViewIconCrop="0 0 40 40" xmlns="http://www.ni.com/PlatformFramework">
+			<IconPanel Height="[float]40" Id="874074d7c9314836b3ed91fd3407ae0b" Left="[float]0" PanelSizeMode="Resize" Top="[float]0" Width="[float]40">
+				<IconTemplate ClipMargin="[SMThickness]3,3,3,3" Height="[float]40" HorizontalAlignment="[HorizontalAlignment]Stretch" Id="751037dc330843c0b54815b99caaa332" Left="[float]0" TemplateName="[string]Banner" Top="[float]0" VerticalAlignment="[VerticalAlignment]Stretch" Width="[float]40">
+					<Rectangle Fill="[SMSolidColorBrush]#ff727272" Id="1e5729d5a76e47bca02b7cc40aac9fe5" IsHitTestVisible="[bool]False" Left="[float]0" RadiusX="[float]4" RadiusY="[float]4" Top="[float]0" />
+					<Rectangle Fill="[SMSolidColorBrush]#ffe5e5e5" Id="f15e4f98f34c424cbd896179c4e7e075" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]1,1,1,1" RadiusX="[float]2.5" RadiusY="[float]2.5" Stroke="[SMSolidColorBrush]#ffffffff" Top="[float]0" />
+					<Path Data="[PathGeometry]M 0,11 L 0,2 C 0,0.899999976 0.899999976,0 2,0 L 2,11 L 0,11 Z" Fill="[SMSolidColorBrush]#b2000000" Height="[float]11" HorizontalAlignment="[HorizontalAlignment]Left" Id="a75273ff461d4e58aef5ce4ab252026b" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]2,2,2,2" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" Width="[float]2" />
+					<Rectangle Fill="[SMSolidColorBrush]#b2000000" Height="[float]11" Id="555d8ba2868240ec930ce2490bfe0763" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]4,2,4,2" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" Width="[float]NaN" />
+					<Path Data="[PathGeometry]M 2,11 L 2,2 C 2,0.899999976 1.10000002,0 0,0 L 0,11 L 2,11 Z" Fill="[SMSolidColorBrush]#b2000000" Height="[float]11" HorizontalAlignment="[HorizontalAlignment]Right" Id="e80fc5a0a9b64dc5942d09e7b687428a" IsHitTestVisible="[bool]False" Left="[float]0" Margin="[SMThickness]2,2,2,2" MinHeight="[float]1" MinWidth="[float]1" Top="[float]0" VerticalAlignment="[VerticalAlignment]Top" Width="[float]2" />
+				</IconTemplate>
+				<Text Foreground="[SMColor]#ffffffff" Height="[float]11" Id="aae506e4bff84c8abb58a924dad8c1a4" Left="[float]1" SizeMode="[TextModelSizeMode]Fixed" Text="[string]Mass Flow" TextAlignment="[TextAlignment]Center" TextWrapping="[TextWrapping]Wrap" Top="[float]2" VerticalScrollBarVisibility="[ScrollBarVisibility]Hidden" Width="[float]37">
+					<FontSetting FontFamily="Segoe UI" FontSize="6" Id="386ca2e47c274ba183f95d698a940338" />
+				</Text>
+				<Path Data="[PathGeometry]M 28,4 L 28,6 L 27,7 L 9,7 C 8.22799969,8.76399994 6.62699986,10 4.57800007,10 C 2.52900004,10 0.772000015,8.76399994 0,7 L 5,7 C 5,7 6,6 6,5 C 6,4 5,3 5,3 L 0,3 C 0.772000015,1.23500001 2.52900004,0 4.57800007,0 C 6.62699986,0 8.22799969,1.23500001 9,3 L 27,3 L 28,4 Z M 27,5 C 27,4.44700003 26.552,4 26,4 C 25.448,4 25,4.44700003 25,5 C 25,5.55200005 25.448,6 26,6 C 26.552,6 27,5.55200005 27,5" EditMode="[ShapeEditMode]FixedPath" Fill="[SMSolidColorBrush]#ffc00000" Id="2f35eca31af5492bbdb2573892a46e14" Left="[float]6" Stroke="[SMSolidColorBrush]#00ffffff" Top="[float]19" Width="[float]28" />
+			</IconPanel>
+		</Icon>
+		<ConnectorPane Height="40" Id="70e239d0fd2f49748bd29db197da781e" ListViewHeight="145" ListViewWidth="150" Width="40" xmlns="http://www.ni.com/PlatformFramework">
+			<ConnectorPaneTerminal ListViewHotspot="0 35" Parameter="9b1c80bf589547deb9e9cc8ebc57fbb1" />
+			<ConnectorPaneTerminal Hotspot="0 15" ListViewHotspot="0 50" Parameter="489da92bdc8d4ed38a4efdaaeb0ebda6" />
+			<ConnectorPaneTerminal Hotspot="0 25" ListViewHotspot="0 65" Parameter="6d3ef6f9518b4bd7a3f6bff69b1ad274" />
+			<ConnectorPaneTerminal Hotspot="0 35" />
+			<ConnectorPaneTerminal Hotspot="15 0" ListViewHotspot="0 80" Parameter="bd3bb8fc9be347328fcd67051efbb2cd" />
+			<ConnectorPaneTerminal Hotspot="25 0" ListViewHotspot="0 95" Parameter="442aa828d561471fa5211715d56af188" />
+			<ConnectorPaneTerminal Hotspot="40 5" ListViewHotspot="150 110" Parameter="236b9772f9b1452bba3eafadcdc3ade0" />
+			<ConnectorPaneTerminal Hotspot="40 15" ListViewHotspot="150 125" Parameter="a6c68cc90c8d406d88c607e49649e849" />
+			<ConnectorPaneTerminal Hotspot="40 25" />
+			<ConnectorPaneTerminal Hotspot="40 35" />
+			<ConnectorPaneTerminal Hotspot="15 40" />
+			<ConnectorPaneTerminal Hotspot="25 40" />
+		</ConnectorPane>
+		<DiagramUnplacedItems Id="1b23f935a91f42bc808d584bdbea43a1" xmlns="http://www.ni.com/MocCommon" />
+		<FrontPanelUnplacedItems Id="83051d09bf5a42c4b831bd434f03fe59" Left="[float]0" PanelSizeMode="Fixed" Top="[float]0">
+			<ComboboxSelector AllowDifferentText="[bool]True" AllowUndefinedValueEntry="[bool]True" BaseName="[string]Process Gas" Height="[float]24" Id="185077bbe86e4334b2e425cdf72a3bcd" IsTabStop="[bool]True" IsTypeAheadEnabled="[bool]True" Label="[UIModel]991197a6c5714bb0a64a5e324b2ba91c" LabelLinked="[bool]True" Left="[float]215" TabIndex="[int]0" Top="[float]107" Value="{DataItemBinding Id=9b1c80bf589547deb9e9cc8ebc57fbb1}" ValueType="[Type]String" VisualMode="[SelectorVisualMode]ComboBoxStyle" Width="[float]78" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+				<ComboboxSelectorInfo DisplayValue="[string]Nitrogen" DisplayValueOverride="[string]" Id="32" IsEnabled="[bool]True" Value="[string]1.0" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Hydrogen" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]1.01" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Ammonia" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]0.73" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Helium" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]1.39" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Methane" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]0.72" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]CO" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]1.00" ValueType="[Type]String" />
+				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="6491066004a41178df42c6a812a7e53" xmlns="http://www.ni.com/PlatformFramework" />
+			</ComboboxSelector>
+			<Label Height="[float]16" Id="991197a6c5714bb0a64a5e324b2ba91c" LabelOwner="[UIModel]185077bbe86e4334b2e425cdf72a3bcd" Left="[float]215" Text="[string]Factory Calibration Gas" Top="[float]87" Width="[float]122" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="664290fd3e1545e8a4abe789129e9e2b" xmlns="http://www.ni.com/PlatformFramework" />
+				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="abc7a14b60014ceda6f21738442fdf33" xmlns="http://www.ni.com/PlatformFramework" />
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="d84cc23329524ff4a96f959e688967f1" xmlns="http://www.ni.com/PlatformFramework" />
+				<FontSetting FontFamily="Segoe UI" FontSize="14" FontStyle="Bold" Id="b166dec05c6b4c029d9c36b0fac61953" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+			<NumericText BaseName="[string]Numeric" ButtonsVisibility="[SMVisibility]Collapsed" Height="[float]24" Id="70bd80bd811c41009f837b017a13b4b3" Label="[UIModel]a29f2b92678346e7a011d57e0b05acc3" Left="[float]215" Maximum="[double]10000000" Minimum="[double]0" TabIndex="[int]1" Top="[float]180" UnitAnnotation="[string]sccm" Value="{DataItemBinding Id=6d3ef6f9518b4bd7a3f6bff69b1ad274}" ValueFormatter="[string]LV:0.00" ValueType="[Type]Double" Width="[float]120" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Foreground="[SMColor]#ffffffff" Height="[float]22" Id="a29f2b92678346e7a011d57e0b05acc3" LabelOwner="[UIModel]70bd80bd811c41009f837b017a13b4b3" Left="[float]215" Text="[string]Full Scale Range (Factory Calibrated Gas)" Top="[float]154" Width="[float]307" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="2c93c4693482435d8746fea3d8042157" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+			<NumericText BaseName="[string]Numeric" ButtonsVisibility="[SMVisibility]Collapsed" Height="[float]24" Id="26598541dc8a4facb3275ef9f09b714c" IsReadOnly="[bool]True" Label="[UIModel]aa05bb008a61471abd5e692ef90d6bb4" Left="[float]215" TabIndex="[int]2" Top="[float]245" UnitAnnotation="[string]sccm" Value="{DataItemBinding Id=236b9772f9b1452bba3eafadcdc3ade0}" ValueFormatter="[string]LV:0.00" ValueType="[Type]Double" Width="[float]120" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Foreground="[SMColor]#ffffffff" Height="[float]22" Id="aa05bb008a61471abd5e692ef90d6bb4" LabelOwner="[UIModel]26598541dc8a4facb3275ef9f09b714c" Left="[float]215" Text="[string]Full Scale Range (Process Gas)" Top="[float]219" Width="[float]226" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="fb946b657dff49cbbc3727ba7f807f11" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+			<ComboboxSelector AllowDifferentText="[bool]True" AllowUndefinedValueEntry="[bool]True" BaseName="[string]Process Gas" Height="[float]24" Id="a572c271eff40188eea7a4ec0d3f3db" IsTabStop="[bool]True" IsTypeAheadEnabled="[bool]True" Label="[UIModel]8114f73ae6a64d3fab76823cef15568c" LabelLinked="[bool]True" Left="[float]215" TabIndex="[int]3" Top="[float]50" Value="{DataItemBinding Id=489da92bdc8d4ed38a4efdaaeb0ebda6}" ValueType="[Type]String" VisualMode="[SelectorVisualMode]ComboBoxStyle" Width="[float]78" xmlns="http://www.ni.com/Controls.LabVIEW.Design">
+				<ComboboxSelectorInfo DisplayValue="[string]Nitrogen" DisplayValueOverride="[string]" Id="32" IsEnabled="[bool]True" Value="[string]1.0" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Hydrogen" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]1.01" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Ammonia" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]0.73" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Helium" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]1.39" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]Methane" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]0.72" ValueType="[Type]String" />
+				<ComboboxSelectorInfo DisplayValue="[string]CO" DisplayValueOverride="[string]" IsEnabled="[bool]True" Value="[string]1.00" ValueType="[Type]String" />
+				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="e8aae418ae974a069cb88e8d433415e7" xmlns="http://www.ni.com/PlatformFramework" />
+			</ComboboxSelector>
+			<Label Height="[float]16" Id="8114f73ae6a64d3fab76823cef15568c" LabelOwner="[UIModel]a572c271eff40188eea7a4ec0d3f3db" Left="[float]215" Text="[string]Process Gas" Top="[float]30" Width="[float]63" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="8052f834396745b3bc8d5980fa44a2a9" xmlns="http://www.ni.com/PlatformFramework" />
+				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="77158963770b4ee997931dbfb5d425fc" xmlns="http://www.ni.com/PlatformFramework" />
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="1a0d052dca4551a37b4a5526bd348f" xmlns="http://www.ni.com/PlatformFramework" />
+				<FontSetting FontFamily="Segoe UI" FontSize="14" FontStyle="Bold" Id="e52bc255a2a1491d934920c289b2e986" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+			<NumericText BaseName="[string]Numeric" ButtonsVisibility="[SMVisibility]Collapsed" Height="[float]24" Id="630063fcb43b4b119bb4249ce4b8338a" Interval="[double]0.001" Label="[UIModel]d292b95ef5145499460308390537501" Left="[float]215" Maximum="[double]10" Minimum="[double]-10" TabIndex="[int]4" Top="[float]310" UnitAnnotation="[string]V" Value="{DataItemBinding Id=bd3bb8fc9be347328fcd67051efbb2cd}" ValueFormatter="[string]LV:0.00" ValueType="[Type]Double" Width="[float]120" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Foreground="[SMColor]#ffffffff" Height="[float]22" Id="d292b95ef5145499460308390537501" LabelOwner="[UIModel]630063fcb43b4b119bb4249ce4b8338a" Left="[float]215" Text="[string]Vmax @100% detection limit" Top="[float]284" Width="[float]219" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="45a2f4c5498247dca204cc2b23a2034a" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+			<NumericText BaseName="[string]Numeric" ButtonsVisibility="[SMVisibility]Collapsed" Height="[float]24" Id="a3bb42f227b44d7c9248f21a26ee00b2" Interval="[double]0.001" Label="[UIModel]aa73e05ad5e14635a66bc56b452ea163" Left="[float]215" Maximum="[double]10" Minimum="[double]-10" TabIndex="[int]5" Top="[float]375" UnitAnnotation="[string]V" Value="{DataItemBinding Id=442aa828d561471fa5211715d56af188}" ValueFormatter="[string]LV:0.00" ValueType="[Type]Double" Width="[float]120" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Foreground="[SMColor]#ffffffff" Height="[float]22" Id="aa73e05ad5e14635a66bc56b452ea163" LabelOwner="[UIModel]a3bb42f227b44d7c9248f21a26ee00b2" Left="[float]215" Text="[string]Vmin @0% detection limit" Top="[float]349" Width="[float]197" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="3bee3bbbd74048c3af1ecba7169efc88" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+			<NumericText BaseName="[string]Numeric" ButtonsVisibility="[SMVisibility]Collapsed" Height="[float]24" Id="e135285639c44ae6ba5757b792154f87" IsReadOnly="[bool]True" Label="[UIModel]afc09c67afa544f5875a12de7d222b4a" Left="[float]215" TabIndex="[int]6" Top="[float]440" UnitAnnotation="[string]sccm/V" Value="{DataItemBinding Id=a6c68cc90c8d406d88c607e49649e849}" ValueFormatter="[string]LV:0.00" ValueType="[Type]Double" Width="[float]120" xmlns="http://www.ni.com/Controls.LabVIEW.Design" />
+			<Label Foreground="[SMColor]#ffffffff" Height="[float]22" Id="afc09c67afa544f5875a12de7d222b4a" LabelOwner="[UIModel]e135285639c44ae6ba5757b792154f87" Left="[float]215" Text="[string]Scaling Factor" Top="[float]414" Width="[float]105" xmlns="http://www.ni.com/PanelCommon">
+				<FontSetting FontFamily="Segoe UI" FontSize="12" FontStyle="Bold" Id="406802995e064aeea1ed49671f0e7db0" xmlns="http://www.ni.com/PlatformFramework" />
+			</Label>
+		</FrontPanelUnplacedItems>
+		<BlockDiagram Id="3ebe88cddd394455bc94e203005c4626">
+			<DataAccessor Bounds="420 460 40 15" DataItem="9b1c80bf589547deb9e9cc8ebc57fbb1" Id="1593a64f962b4cb2bdf44b9b1a4c61bc" Label="69dba79ad5c4755bc3292f0cfb2a757" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="String" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<DataAccessor Bounds="515 395 40 15" DataItem="6d3ef6f9518b4bd7a3f6bff69b1ad274" Id="7db258a8bf884e0499a79923dff7b6bf" Label="826d4d9854934c618d46c2e9d8fa8de1" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Double" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<DataAccessor Bounds="910 405 40 15" DataItem="236b9772f9b1452bba3eafadcdc3ade0" Id="2e0c1cd347e846fa8e95163d469b5955" Label="47f3def4e5fe458cb08c52a2e5f8be1b" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Double" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<DataAccessor Bounds="410 420 40 15" DataItem="489da92bdc8d4ed38a4efdaaeb0ebda6" Id="c347a556bcd400392d50861b027b963" Label="ea9ccd08807243e49a68472d91c3472d" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="String" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<DataAccessor Bounds="835 475 40 15" DataItem="bd3bb8fc9be347328fcd67051efbb2cd" Id="aa9ca39fdaa143fea5a4eccafcb73e1d" Label="632f9ec3f5e04be0a4068bf3987616a2" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Double" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<DataAccessor Bounds="835 490 40 15" DataItem="442aa828d561471fa5211715d56af188" Id="2d63771dbe1f498ab62ad5d99e73710e" Label="ff42ec1cc6b14b878bf4c2aedf223563" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Double" Direction="Output" Hotspot="40 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<DataAccessor Bounds="1145 450 40 15" DataItem="a6c68cc90c8d406d88c607e49649e849" Id="6407a8a32fa34903833520a6096baf60" Label="5ba0a685747f4366b8e125ebf0d7c253" xmlns="http://www.ni.com/MocCommon">
+				<Terminal DataType="Double" Direction="Input" Hotspot="3 5" Id="Value" xmlns="http://www.ni.com/PlatformFramework" />
+			</DataAccessor>
+			<Divide Bounds="600 440 30 30" Id="623c57fa48304bd6940be7ed624e37d1" />
+			<FloatingPointStringToNumber Bounds="520 420 40 40" Id="86df708a7e4a45fa9fd77517ae55d988" />
+			<FloatingPointStringToNumber Bounds="520 460 40 40" Id="f8522d23da474d47b64ca4aae053f0a3" />
+			<Multiply Bounds="735 395 30 30" Id="7785fb52ed9640dd9df563a97af703c7" Terminals="o=ca72e848e7fb409ea0eb0d25b9781f40, c0t0v=4f17e84967b4a0fb520c9a2f0b27e6d, c1t0v=9dc58cd59fa544f2864b6bc0c4266450" />
+			<Divide Bounds="995 440 30 30" Id="4aeb4ab0cd784e6ea0aab38d7220fda9" />
+			<Subtract Bounds="940 445 30 30" Id="f6baaa4bccea4d999ca4851ed3f32671" />
+			<NodeLabel AttachedTo="1593a64f962b4cb2bdf44b9b1a4c61bc" Bounds="286 460 129 14" Id="69dba79ad5c4755bc3292f0cfb2a757" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Factory Calibration Gas</p.Text>
+			</NodeLabel>
+			<NodeLabel AttachedTo="7db258a8bf884e0499a79923dff7b6bf" Bounds="280 395 230 14" Id="826d4d9854934c618d46c2e9d8fa8de1" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Full Scale Range (Factory Calibrated Gas)</p.Text>
+			</NodeLabel>
+			<NodeLabel AttachedTo="2e0c1cd347e846fa8e95163d469b5955" Bounds="955 405 172 14" Id="47f3def4e5fe458cb08c52a2e5f8be1b" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Full Scale Range (Process Gas)</p.Text>
+			</NodeLabel>
+			<NodeLabel AttachedTo="c347a556bcd400392d50861b027b963" Bounds="338 420 67 14" Id="ea9ccd08807243e49a68472d91c3472d" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Process Gas</p.Text>
+			</NodeLabel>
+			<NodeLabel AttachedTo="aa9ca39fdaa143fea5a4eccafcb73e1d" Bounds="668 475 162 14" Id="632f9ec3f5e04be0a4068bf3987616a2" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Vmax @100% detection limit</p.Text>
+			</NodeLabel>
+			<NodeLabel AttachedTo="2d63771dbe1f498ab62ad5d99e73710e" Bounds="685 490 145 14" Id="ff42ec1cc6b14b878bf4c2aedf223563" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Vmin @0% detection limit</p.Text>
+			</NodeLabel>
+			<NodeLabel AttachedTo="6407a8a32fa34903833520a6096baf60" Bounds="1190 450 78 14" Id="5ba0a685747f4366b8e125ebf0d7c253" xmlns="http://www.ni.com/PlatformFramework">
+				<p.Text>Scaling Factor</p.Text>
+			</NodeLabel>
+			<Wire Id="88cc2c79261741509768186dad2facb5" Joints="N(1593a64f962b4cb2bdf44b9b1a4c61bc:Value)|(460,465) N(f8522d23da474d47b64ca4aae053f0a3:string)|(520,465)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="4f17e84967b4a0fb520c9a2f0b27e6d" Joints="N(7db258a8bf884e0499a79923dff7b6bf:Value)|(555,400) N(7785fb52ed9640dd9df563a97af703c7:c0t0v)|(735,400)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="ca72e848e7fb409ea0eb0d25b9781f40" Joints="N(7785fb52ed9640dd9df563a97af703c7:o)|(765,410) h(80) B(1) N(2e0c1cd347e846fa8e95163d469b5955:Value)|(913,410) B(1) v(35) N(4aeb4ab0cd784e6ea0aab38d7220fda9:x)|(995,445)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="b1ef6e43191d4bbc90ae9e8069d906fb" Joints="N(c347a556bcd400392d50861b027b963:Value)|(450,425) N(86df708a7e4a45fa9fd77517ae55d988:string)|(520,425)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="7aee05cc88d64040b57169b4b9dcc94e" Joints="N(aa9ca39fdaa143fea5a4eccafcb73e1d:Value)|(875,480) h(5) v(-30) N(f6baaa4bccea4d999ca4851ed3f32671:x)|(940,450)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="dfb57cd64ee14160ace40f6b5aca76f1" Joints="N(2d63771dbe1f498ab62ad5d99e73710e:Value)|(875,495) h(15) v(-30) N(f6baaa4bccea4d999ca4851ed3f32671:y)|(940,465)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="6650584cf2c64f049e38f454460837e7" Joints="N(4aeb4ab0cd784e6ea0aab38d7220fda9:x/y)|(1025,455) N(6407a8a32fa34903833520a6096baf60:Value)|(1148,455)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="9dc58cd59fa544f2864b6bc0c4266450" Joints="N(623c57fa48304bd6940be7ed624e37d1:x/y)|(630,455) h(99) v(-40) N(7785fb52ed9640dd9df563a97af703c7:c1t0v)|(735,415)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="5b594d83b20748279249ffd4b118c336" Joints="N(f8522d23da474d47b64ca4aae053f0a3:number)|(560,485) h(11) v(-25) N(623c57fa48304bd6940be7ed624e37d1:y)|(600,460)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="9cbeb5022747423fb092ec4206318281" Joints="N(86df708a7e4a45fa9fd77517ae55d988:number)|(560,445) N(623c57fa48304bd6940be7ed624e37d1:x)|(600,445)" xmlns="http://www.ni.com/PlatformFramework" />
+			<Wire Id="45308dc8ccc5462a8a2e490f9e304f15" Joints="N(f6baaa4bccea4d999ca4851ed3f32671:x-y)|(970,460) N(4aeb4ab0cd784e6ea0aab38d7220fda9:y)|(995,460)" xmlns="http://www.ni.com/PlatformFramework" />
+		</BlockDiagram>
+		<NativeFrontPanel Background="[SMSolidColorBrush]#ffffffff" Height="[float]1600" HtmlPanel="[bool]False" Id="784d32249eb542f9a34ae80b517967ca" Left="[float]0" PanelSizeMode="Fixed" Top="[float]0" Width="[float]2000">
+			<PanelExecutionWindow Id="52812d3745ba47f9b1fbea46a6e9c560" />
+		</NativeFrontPanel>
+		<DataItem CallDirection="Input" CallIndex="0" DataType="String" Id="9b1c80bf589547deb9e9cc8ebc57fbb1" Name="Factory Calibration Gas" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0.73</p.DefaultValue>
+		</DataItem>
+		<DataItem AdaptToDiagramType="True" CallDirection="Input" CallIndex="2" DataType="Double" Id="6d3ef6f9518b4bd7a3f6bff69b1ad274" Name="Full Scale Range (Factory Calibrated Gas)" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0x4059000000000000</p.DefaultValue>
+		</DataItem>
+		<DataItem AdaptToDiagramType="True" CallDirection="Output" CallIndex="0" DataType="Double" Id="236b9772f9b1452bba3eafadcdc3ade0" Name="Full Scale Range (Process Gas)" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0x0</p.DefaultValue>
+		</DataItem>
+		<DataItem CallDirection="Input" CallIndex="3" DataType="String" Id="489da92bdc8d4ed38a4efdaaeb0ebda6" Name="Process Gas" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0.73</p.DefaultValue>
+		</DataItem>
+		<DataItem AdaptToDiagramType="True" CallDirection="Input" CallIndex="4" DataType="Double" Id="bd3bb8fc9be347328fcd67051efbb2cd" Name="Vmax @100% detection limit" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0x4014000000000000</p.DefaultValue>
+		</DataItem>
+		<DataItem AdaptToDiagramType="True" CallDirection="Input" CallIndex="5" DataType="Double" Id="442aa828d561471fa5211715d56af188" Name="Vmin @0% detection limit" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0x0</p.DefaultValue>
+		</DataItem>
+		<DataItem AdaptToDiagramType="True" CallDirection="Output" CallIndex="1" DataType="Double" Id="a6c68cc90c8d406d88c607e49649e849" Name="Scaling Factor" xmlns="http://www.ni.com/MocCommon">
+			<p.DefaultValue>0x0</p.DefaultValue>
+		</DataItem>
+	</VirtualInstrument>
+</SourceFile>
