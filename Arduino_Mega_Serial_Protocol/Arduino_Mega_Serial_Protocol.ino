@@ -102,7 +102,7 @@ const int TC5CS = 29;   // Adafruit MAX38156 CS Pin (TC5 Thermocouple)
 const int TC5CLK = 30;   // Adafruit MAX38156 SCK or CLK Pin (TC5 Thermocouple)
 const int TC5DO = 31;   // Adafruit MAX38156 SDO or DO Pin (TC5 Thermocouple)
 const int TC2DI = 32;   // Adafruit MAX38156 SDI or DI Pin (TC2 Thermocouple)
-const int TC2CS = 33;   // Adafruit MAX38156 CD Pin (TC2 Thermocouple)
+const int TC2CS = 33;   // Adafruit MAX38156 CS Pin (TC2 Thermocouple)
 const int TC2CLK = 34;   // Adafruit MAX38156 SCK or CLK Pin (TC2 Thermocouple)
 const int TC2DO = 35;   // Adafruit MAX38156 SDO or DO Pin (TC2 Thermocouple)
 const int TC7DO = 36;  // Generic MAX6675 DO pin (TC7 Thermocouple)
@@ -253,50 +253,50 @@ void setup() {
   tc1.setThermocoupleType(MAX31856_TCTYPE_K);
   // Serial.print("The temperature of Thermocouple TC-1 is ");
   // Serial.print(tc1.readThermocoupleTemperature());
-  // Serial.println("°C.");
-  // Serial.println("TC-1 MAX31856 Initialised with Thermocouple Type K");
+  // Serial.print("°C.");
+  // Serial.print("TC-1 MAX31856 Initialised with Thermocouple Type K");
   
   // Thermocouple TC2
   tc2.setThermocoupleType(MAX31856_TCTYPE_J);
   // Serial.print("The temperature of Thermocouple TC-2 is ");
   // Serial.print(tc2.readThermocoupleTemperature());
-  // Serial.println("°C.");
-  // Serial.println("TC-2 MAX31856 Initialised with Thermocouple Type J");
+  // Serial.print("°C.");
+  // Serial.print("TC-2 MAX31856 Initialised with Thermocouple Type J");
 
   // Thermocouple TC3
   tc3.readCelsius();
   // Serial.print("The temperature of Thermocouple TC-3 is ");
   // Serial.print(tc3.readCelsius());
-  // Serial.println("°C.");
-  // Serial.println("TC-3 MAX6675 Initialised with Thermocouple Type K");
+  // Serial.print("°C.");
+  // Serial.print("TC-3 MAX6675 Initialised with Thermocouple Type K");
 
   // Thermocouple TC4
   tc4.readCelsius();  
   // Serial.print("The temperature of Thermocouple TC-4 is ");
   // Serial.print(tc4.readCelsius());
-  // Serial.println("°C.");
-  // Serial.println("TC-4 MAX6675 Initialised with Thermocouple Type K");
+  // Serial.print("°C.");
+  // Serial.print("TC-4 MAX6675 Initialised with Thermocouple Type K");
   
   // Thermocouple TC5
   tc5.setThermocoupleType(MAX31856_TCTYPE_J);
   // Serial.print("The temperature of Thermocouple TC-5 is ");
   // Serial.print(tc5.readThermocoupleTemperature());
-  // Serial.println("°C.");
-  // Serial.println("TC-5 MAX31856 Initialised with Thermocouple Type J");
+  // Serial.print("°C.");
+  // Serial.print("TC-5 MAX31856 Initialised with Thermocouple Type J");
   
   // Thermocouple TC6
   tc6.readCelsius();
   // Serial.print("The temperature of Thermocouple TC-6 is ");
   // Serial.print(tc6.readCelsius());
-  // Serial.println("°C.");
-  // Serial.println("TC-6 MAX6675 Initialised with Thermocouple Type K");
+  // Serial.print("°C.");
+  // Serial.print("TC-6 MAX6675 Initialised with Thermocouple Type K");
 
   // Thermocouple TC7
   tc7.readCelsius();
   // Serial.print("The temperature of Thermocouple TC-7 is ");
   // Serial.print(tc7.readCelsius());
-  // Serial.println("°C.");
-  // Serial.println("TC-7 MAX6675 Initialised with Thermocouple Type K");
+  // Serial.print("°C.");
+  // Serial.print("TC-7 MAX6675 Initialised with Thermocouple Type K");
   // Thermocouple data logger module setup and initisation sub-sketch ends
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -413,7 +413,7 @@ void setup() {
   digitalWrite(Relay2, HIGH);
   digitalWrite(Relay3, HIGH);
   digitalWrite(Relay4, HIGH);
-//  Serial.println("All relays have been initialised in off position.");
+//  Serial.print("All relays have been initialised in off position.");
   // 4-channel relay configuration sub-sketch ends
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
@@ -448,15 +448,15 @@ void loop() {
       
       if(Serial.available()){                             // Arduino will only run the loop if it reads that there is some incoming data from the serial port
       inString = Serial.readStringUntil(terminator);          // To read the string (and not converted value of the serial commands) until the terminator character for generating the sub-string
-      //Serial.println(inString);                               
+      //Serial.print(inString);                               
       CMD = inString.substring(1,3);                          // Storing the 2nd and 3rd character in variable CMD: PV (Present Value) or SV (Setpoint Value)
-      //Serial.println(CMD);                                    
+      //Serial.print(CMD);                                    
       INST_Code = inString.substring(3,6);                    // Storing the instrument type or code: MFC (Mass Flow Convertor), MFM (Mass Flow Meter), ADC (Analog to Digital Convertor - Analog Input)
-      Serial.println(INST_Code);                                                        //BPR (Back Pressure Regulator), DAC (Digital to Analog Convertor - Analog Out), _TC (Thermocouple), RYL (Relay)
+      //Serial.print(INST_Code);                                                        //BPR (Back Pressure Regulator), DAC (Digital to Analog Convertor - Analog Out), _TC (Thermocouple), RYL (Relay)
       INST_SN = inString.substring(6,8);                      // Storing the serial number of the instrument as String
-      Serial.println(INST_SN);
+      //Serial.print(INST_SN);
       INST_N = INST_SN.toInt();                               // Converting and storing the serial number as integer
-      Serial.println(INST_N);
+      //Serial.print(INST_N);
       len = inString.length();                                // Length of the input string recieved by the serial port without the termination character
       if(len > 8){SSP = inString.substring(9);}               // If more than 9 characters present in string, then store the setpoint which starts from 9th character in variable SSP as String
       
@@ -482,27 +482,32 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
                 //10-bit Resolution = 0.0049 V/bit@ Vref = 5 V
                 //Mass Flow Controllers and Mass Flow Meters
                 fr_m1 = aip_m1 - ain_m1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_m1 * factor_10_bit);
+                Serial.print(fr_m1 * factor_10_bit);
+                Serial.println(";");
                 break;
 
                 case 2:
                 fr_m2 = aip_m2 - ain_m2; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_m2 * factor_10_bit);
+                Serial.print(fr_m2 * factor_10_bit);
+                Serial.println(";");
                 break;
         
                 case 3:        
                 fr_m3 = aip_m3 - ain_m3; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_m3 * factor_10_bit);
+                Serial.print(fr_m3 * factor_10_bit);
+                Serial.println(";");
                 break;        
 
                 case 4:
                 fr_m4 = aip_m4 - ain_m4; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_m4 * factor_10_bit);
+                Serial.print(fr_m4 * factor_10_bit);
+                Serial.println(";");
                 break;
 
                 case 5:
                 fr_m5 = aip_m5 - ain_m5; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_m5 * factor_10_bit);
+                Serial.print(fr_m5 * factor_10_bit);
+                Serial.println(";");                
                 break;                
                 }
               }
@@ -511,12 +516,12 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
               switch(INST_N){      
                 case 1:
                 fr_mm1 = aip_mm1 - ain_mm1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_mm1);
+                Serial.print(fr_mm1);
                 break;
 
                 case 2:
                 fr_mm2 = aip_mm2 - ain_mm2; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.println(fr_mm2);
+                Serial.print(fr_mm2);
                 break;  
                 }      
               }             */
@@ -524,7 +529,9 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
             //Back Pressure Regulators and Pressure Transducers
             if (INST_Code == "BPR"){        // BPR if block starts here
                 p_bpr1 = aip_bpr1 - ain_bpr1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW) 
-                Serial.println(p_bpr1 * factor_10_bit);
+                Serial.print(p_bpr1 * factor_10_bit);
+                Serial.println(";");
+                break;
               }      
         // Analog Input Voltage Reading Sub-Sketch for onboard pins numbered from A0 to A15 ends
         //////////////////////////////////////////////////////////////////////////////////////////////////////      
@@ -539,32 +546,38 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
               switch(INST_N){
                   case 11:                          // MFM-1
                   ads1115_1a = ads1115_1.readADC_Differential_0_1();
-                  Serial.println(ads1115_1a*factor_16_bit);      
+                  Serial.print(ads1115_1a*factor_16_bit);
+                  Serial.println(";");
                   break;
 
                   case 12:                          // MFM-2
                   ads1115_1b = ads1115_1.readADC_Differential_2_3();
-                  Serial.println(ads1115_1b*factor_16_bit);
+                  Serial.print(ads1115_1b*factor_16_bit);
+                  Serial.println(";");
                   break;
             
                   case 21:                          // PT-1
                   ads1115_2a = ads1115_2.readADC_Differential_0_1();
-                  Serial.println(ads1115_2a*factor_16_bit);      
+                  Serial.print(ads1115_2a*factor_16_bit);      
+                  Serial.println(";");                  
                   break;
 
                   case 22:                          // PT-2
                   ads1115_2b = ads1115_2.readADC_Differential_2_3();
-                  Serial.println(ads1115_2b*factor_16_bit);
+                  Serial.print(ads1115_2b*factor_16_bit);
+                  Serial.println(";");
                   break;               
 
                   case 31:                          // NDIR
                   ads1115_3a = ads1115_3.readADC_Differential_0_1();
-                  Serial.println(ads1115_3a*factor_16_bit);
+                  Serial.print(ads1115_3a*factor_16_bit);
+                  Serial.println(";");
                   break;
                   
                   case 32:
                   ads1115_3b = ads1115_3.readADC_Differential_2_3();
-                  Serial.println(ads1115_3b*factor_16_bit);
+                  Serial.print(ads1115_3b*factor_16_bit);
+                  Serial.println(";");
                   break;
               }
             }
@@ -577,37 +590,44 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
             switch(INST_N){
             // Thermocouple TC-1
               case 1:
-                Serial.println(tc1.readThermocoupleTemperature());
+                Serial.print(tc1.readThermocoupleTemperature());
+                Serial.println(";");
                 break;
 
             // Thermocouple TC-2
               case 2:
-                Serial.println(tc2.readThermocoupleTemperature());
+                Serial.print(tc2.readThermocoupleTemperature());
+                Serial.println(";");
                 break;          
 
             // Thermocouple TC-3
               case 3:  
-                Serial.println(tc3.readCelsius());
+                Serial.print(tc3.readCelsius());
+                Serial.println(";");
                 break;
 
             // Thermocouple TC-4
               case 4:
-                Serial.println(tc4.readCelsius());
+                Serial.print(tc4.readCelsius());
+                Serial.println(";");
                 break;
 
             // Thermocouple TC-5
               case 5:
-                Serial.println(tc5.readThermocoupleTemperature());
+                Serial.print(tc5.readThermocoupleTemperature());
+                Serial.println(";");
                 break;        
             
             // Thermocouple TC-6
               case 6:
-                Serial.println(tc6.readCelsius());
+                Serial.print(tc6.readCelsius());
+                Serial.println(";");
                 break;
 
             // Thermocouple TC-7
               case 7:
-                Serial.println(tc7.readCelsius());
+                Serial.print(tc7.readCelsius());
+                Serial.println(";");
                 break;
               }
             }
@@ -623,49 +643,54 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
   
     else if (CMD == "SV"){                // The SV if block starts here
         SSP = inString.substring(8);
-        Serial.println(SSP);
+        Serial.print(SSP);
         SetValue = SSP.toFloat();
         float SP_12 = 0;            // Convert decimnal to 12-bit base (Resolution = 0.001122 V/bit)
-        Serial.println("Command Passed the variable");
-        Serial.println(INST_N);
+        Serial.print("Command Passed the variable");
+        Serial.print(INST_N);
           if (INST_Code == "DAC"){                  // DAC if block and switch case structure starts here
             switch(INST_N){
             case 11:
             tcaselect(2);
             sp_fr_m1 = 0;
-            Serial.println(SP_12);   
-            mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-1
-            Serial.println("Value Set");
+            Serial.print(SP_12);   
+            mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m2); // MCP4728-1 Channel-A controls setpoint for MFC-1
+            Serial.println(";");
             break;
 
             case 12:
             tcaselect(2);
             sp_fr_m2 = round(SP_12);
             mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,sp_fr_m2); // MCP4728-1 Channel-A controls setpoint for MFC-2
+            Serial.println(";");
             break;
 
             case 13:
             tcaselect(2);
             sp_fr_m3 = round(SP_12);
             mcp4728_1.setChannelValue(MCP4728_CHANNEL_C,sp_fr_m3); // MCP4728-1 Channel-A controls setpoint for MFC-3
+            Serial.println(";");
             break;
 
             case 14:
             tcaselect(2);
             sp_fr_m4 = round(SP_12);    
             mcp4728_1.setChannelValue(MCP4728_CHANNEL_D,sp_fr_m4); // MCP4728-1 Channel-A controls setpoint for MFC-4
+            Serial.println(";");
             break;
             
             case 21:
             tcaselect(3);
             sp_fr_m5 = round(SP_12);
             mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m5); // MCP4728-1 Channel-A controls setpoint for MFC-5
+            Serial.println(";");
             break;                    
 
             case 22:
             tcaselect(3);
             sp_p_bpr1 = round(SP_12);
             mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,sp_p_bpr1); // MCP4728-1 Channel-A controls setpoint for BPR-1
+            Serial.println(";");
             break;  
             }
            // mcp4728_2.setChannelValue(MCP4728_CHANNEL_C, 0);
@@ -677,7 +702,7 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
         // TC-4 (direct in contact with HP ammonia before the MFC) and TC-5 (MFC surface) has been used for this application
         if (INST_Code == "RLY"){                        // The if Relay block and switch case starts here
         RLY_POS = inString.substring(6);
-        Serial.println(RLY_POS);
+        // Serial.print(RLY_POS);
           switch(INST_N){          
             case 1:
             if(RLY_POS == "01ON"){digitalWrite(Relay1,LOW);}
