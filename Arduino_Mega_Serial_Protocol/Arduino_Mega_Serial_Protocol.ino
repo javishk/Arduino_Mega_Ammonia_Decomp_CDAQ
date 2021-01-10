@@ -531,7 +531,6 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
                 p_bpr1 = aip_bpr1 - ain_bpr1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW) 
                 Serial.print(p_bpr1 * factor_10_bit);
                 Serial.println(";");
-                break;
               }      
         // Analog Input Voltage Reading Sub-Sketch for onboard pins numbered from A0 to A15 ends
         //////////////////////////////////////////////////////////////////////////////////////////////////////      
