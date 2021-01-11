@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SourceFile Checksum="92A2F2F8D0F7B0BB8BF859152BBA8B7ABF18B7F43F55DD8B6D58FBA962B6127B69E348833FF2F2C9BE98530BC85199E4E9C22264CD5F2AE508A8A4EC7460126D" xmlns="http://www.ni.com/PlatformFramework">
+<SourceFile Checksum="63ABDE25A979E313DBD24B82C240B78F3901E2AA66BFD1AB46A058A4EB930B014C72948EE86FC686B347AD2778EF82356A200FD8AE996501CD6CFB7E8B7EC619" xmlns="http://www.ni.com/PlatformFramework">
 	<SourceModelFeatureSet>
 		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="Data" Name="http://www.ni.com/Data" OldestCompatibleVersion="6.2.0.0" Version="6.2.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="8.1.0.50414" FeatureSetName="GComponentFeatureSet" Name="http://www.ni.com/GComponent.xsd" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
@@ -267,7 +267,6 @@
 						<SourceFileReference Bindings="ContentKind_{http://www.ni.com/SystemDesigner/Vi}Process.Vi,{http://www.ni.com/SystemDesigner/EnvoyManagement}ProcessBackedEnvoyServiceMetaFactory" Id="dc16df7612dc4955983356a8b5885872" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="Serial_Read.gvi" StoragePath="Sub VIs to Main_GUI\Serial_Read.gvi" />
 						<SourceFileReference Bindings="ContentKind_{http://www.ni.com/SystemDesigner/Vi}Process.Vi,{http://www.ni.com/SystemDesigner/EnvoyManagement}ProcessBackedEnvoyServiceMetaFactory" Id="53310614a2a4090bb36a50603ba3d99" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="Serial_Write.gvi" StoragePath="Sub VIs to Main_GUI\Serial_Write.gvi" />
 						<SourceFileReference Bindings="ContentKind_{http://www.ni.com/SystemDesigner/Vi}Process.Vi,{http://www.ni.com/SystemDesigner/EnvoyManagement}ProcessBackedEnvoyServiceMetaFactory" Id="fed009b10044498b5ac44800c238170" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="Serial_Write_Relay.gvi" StoragePath="Sub VIs to Main_GUI\Serial_Write_Relay.gvi" />
-						<FileReference Bindings=".txt" Id="52f0bdc1131a499486f317d00b419cd6" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="Arduino_Mega_Code.txt" StoragePath="..\..\Arduino\Ammonia_CMR_Code_V3_Final_Technical_Draft\Arduino_Mega_Code.txt" />
 						<SourceFileReference Bindings="ContentKind_{http://www.ni.com/SystemDesigner/Vi}Process.Vi,{http://www.ni.com/SystemDesigner/EnvoyManagement}ProcessBackedEnvoyServiceMetaFactory" Id="bcf11dbc9ab74cf9bbbaa42c222e8ed9" ModelDefinitionType="NationalInstruments.LabVIEW.VI.Modeling.VirtualInstrument" Name="Get_GC_Composition.gvi" StoragePath="Sub VIs to Main_GUI\Get_GC_Composition.gvi" />
 					</EmbeddedDefinitionReference>
 				</NameScopingEnvoy>

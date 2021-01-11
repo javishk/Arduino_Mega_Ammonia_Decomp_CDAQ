@@ -1,3 +1,4 @@
+
 // MAX6675 library - Version: Latest
 #include <max6675.h>
 
@@ -19,6 +20,8 @@
 
 // Adafruit TCA9548A Multiplexer definition
 #define TCAADDR 0x70
+
+#include <Adafruit_MCP4725.h>
 
 /*
   -> This sketch is a combination of the following sketches repared to read and
@@ -209,9 +212,14 @@ Adafruit_ADS1115 ads1115_3(0x4A); // Construct an object with the module Adafrui
                                   // which is a 16-bit 4-channel analog output device
                                   // (Digital to Analog Convertor) with the address (0x4A)
 
-// Adafruit MCP4728 4-Channel 16-bit I2C Digital to Analog Convertor
+// Adafruit MCP4728 4-Channel 12-bit I2C Digital to Analog Convertor
 Adafruit_MCP4728 mcp4728_1;
-Adafruit_MCP4728 mcp4728_2;                     
+Adafruit_MCP4728 mcp4728_2;
+
+// Adafruit MCP4725 1-Channel 12-bit I2C Digital to Analog Convertor
+Adafruit_MCP4725 mcp4725_1;
+Adafruit_MCP4725 mcp4725_2;
+Adafruit_MCP4725 mcp4725_3;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Defining global variables that will be needed in void loop{} to store sub-strings obtained from the serial port via Serial.readString() command.
@@ -372,24 +380,36 @@ void setup() {
   
   // Choosing the Channel#2 (Channel#0 to Channel#7 (Total: 8 Channels))
   // Initlialising the channels on MCP4728 breakout board present on Channel 2 of multiplexer
-  tcaselect(2);
-  mcp4728_1.begin();
-  if (!mcp4728_1.begin())  
-    mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-1
-    mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,0); // MCP4728-1 Channel-A controls setpoint for MFC-2
-    mcp4728_1.setChannelValue(MCP4728_CHANNEL_C,0); // MCP4728-1 Channel-A controls setpoint for MFC-3
-    mcp4728_1.setChannelValue(MCP4728_CHANNEL_D,0); // MCP4728-1 Channel-A controls setpoint for MFC-4 
-    mcp4728_1.saveToEEPROM();
+//  tcaselect(2);
+//  mcp4728_1.begin();
+//  if (!mcp4728_1.begin())  
+//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-1
+//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,0); // MCP4728-1 Channel-A controls setpoint for MFC-2
+//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_C,0); // MCP4728-1 Channel-A controls setpoint for MFC-3
+//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_D,0); // MCP4728-1 Channel-A controls setpoint for MFC-4 
+//    mcp4728_1.saveToEEPROM();
+//
+//  // Choosing the Channel#3 (Channel#0 to Channel#7 (Total: 8 Channels))
+//  // Initlialising the channels on MCP4728 breakout board present on Channel 3  
+//  tcaselect(3);
+//  mcp4728_2.begin();
+//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-5
+//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,0); // MCP4728-1 Channel-A controls setpoint for BPR-1
+//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_C,0);
+//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_D,0);
+//    mcp4728_2.saveToEEPROM();
 
-  // Choosing the Channel#3 (Channel#0 to Channel#7 (Total: 8 Channels))
-  // Initlialising the channels on MCP4728 breakout board present on Channel 3  
-  tcaselect(3);
-  mcp4728_2.begin();
-    mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-5
-    mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,0); // MCP4728-1 Channel-A controls setpoint for BPR-1
-    mcp4728_2.setChannelValue(MCP4728_CHANNEL_C,0);
-    mcp4728_2.setChannelValue(MCP4728_CHANNEL_D,0);
-    mcp4728_2.saveToEEPROM();
+  tcaselect(4);
+  mcp4725_1.begin();
+      mcp4725_1.setVoltage(0,false);
+
+    tcaselect(5);
+  mcp4725_1.begin();
+      mcp4725_1.setVoltage(0,false);
+
+    tcaselect(6);
+  mcp4725_1.begin();
+      mcp4725_1.setVoltage(0,false);
   
   // Choosing the Channel#1 (Channel#0 to Channel#7 (Total: 8 Channels))
   // Initlialising the channels on MCP4728 breakout board present on channels of multiplexer
@@ -679,16 +699,27 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
             break;
             
             case 21:
-            tcaselect(3);
-            sp_fr_m5 = round(SP_12);
-            mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m5); // MCP4728-1 Channel-A controls setpoint for MFC-5
-            Serial.println(";");
-            break;                    
+//            tcaselect(3);
+//            sp_fr_m5 = round(SP_12);
+//            mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m5); // MCP4728-1 Channel-A controls setpoint for MFC-5
+//            Serial.println(";");
+//            break;                    
 
+            tcaselect(4);
+            sp_fr_m5 = round(SP_12);
+            mcp4725_1.setVoltage(sp_fr_m5,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
+            Serial.println(";");
+            break;
+            
             case 22:
-            tcaselect(3);
+//            tcaselect(3);
+//            sp_p_bpr1 = round(SP_12);
+//            mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,sp_p_bpr1); // MCP4728-1 Channel-A controls setpoint for BPR-1
+//            Serial.println(";");
+//            break;
+            tcaselect(5);
             sp_p_bpr1 = round(SP_12);
-            mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,sp_p_bpr1); // MCP4728-1 Channel-A controls setpoint for BPR-1
+            mcp4725_2.setVoltage(sp_p_bpr1,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
             Serial.println(";");
             break;  
             }
