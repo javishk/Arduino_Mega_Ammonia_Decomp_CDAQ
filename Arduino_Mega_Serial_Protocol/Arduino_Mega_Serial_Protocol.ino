@@ -241,9 +241,9 @@ char terminator = ';';
 String RLY_POS = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-float factor_10_bit = 0.0049;       // For arduino analog pins
-float factor_12_bit = 0.001221;     // For MCP4728 DAC boards 
-float factor_16_bit = 0.00015259;   // For ADS1115 ADC boards (the range of this board is from -Vref to +Vref, hence the range of 5 V is doubled a factor of 2)
+float factor_10_bit = 1;       // For arduino analog pins 0.0049
+float factor_12_bit = 1;     // For MCP4728 DAC boards 0.001221
+float factor_16_bit = 1;   // For ADS1115 ADC boards (the range of this board is from -Vref to +Vref, hence the range of 5 V is doubled a factor of 2)0.00015259
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Setup and Initialisation part of the code for Arduino Mega to run once when
@@ -404,12 +404,12 @@ void setup() {
       mcp4725_1.setVoltage(0,false);
 
     tcaselect(5);
-  mcp4725_1.begin();
-      mcp4725_1.setVoltage(0,false);
+  mcp4725_2.begin();
+      mcp4725_2.setVoltage(0,false);
 
     tcaselect(6);
-  mcp4725_1.begin();
-      mcp4725_1.setVoltage(0,false);
+  mcp4725_3.begin();
+      mcp4725_3.setVoltage(0,false);
   
   // Choosing the Channel#1 (Channel#0 to Channel#7 (Total: 8 Channels))
   // Initlialising the channels on MCP4728 breakout board present on channels of multiplexer
@@ -459,7 +459,7 @@ void setup() {
 
 void loop() {
 
-      inString = "";
+  inString = "";
       CMD = "";
       INST_Code = "";
       INST_SN = "";
@@ -662,65 +662,59 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
   
     else if (CMD == "SV"){                // The SV if block starts here
         SSP = inString.substring(8);
-        Serial.print(SSP);
+        //Serial.print(SSP);
         SetValue = SSP.toFloat();
-        float SP_12 = 0;            // Convert decimnal to 12-bit base (Resolution = 0.001122 V/bit)
-        Serial.print("Command Passed the variable");
-        Serial.print(INST_N);
+        float SP_12 = SetValue/factor_12_bit;            // Convert decimnal to 12-bit base (Resolution = 0.001122 V/bit)
+        //Serial.print("Command Passed the variable");
+       // Serial.print(INST_N);
           if (INST_Code == "DAC"){                  // DAC if block and switch case structure starts here
             switch(INST_N){
             case 11:
             tcaselect(2);
-            sp_fr_m1 = 0;
-            Serial.print(SP_12);   
-            mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m2); // MCP4728-1 Channel-A controls setpoint for MFC-1
-            Serial.println(";");
+            mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m1); // MCP4728-1 Channel-A controls setpoint for MFC-1
             break;
 
             case 12:
             tcaselect(2);
             sp_fr_m2 = round(SP_12);
             mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,sp_fr_m2); // MCP4728-1 Channel-A controls setpoint for MFC-2
-            Serial.println(";");
             break;
 
             case 13:
             tcaselect(2);
             sp_fr_m3 = round(SP_12);
             mcp4728_1.setChannelValue(MCP4728_CHANNEL_C,sp_fr_m3); // MCP4728-1 Channel-A controls setpoint for MFC-3
-            Serial.println(";");
             break;
 
             case 14:
             tcaselect(2);
             sp_fr_m4 = round(SP_12);    
             mcp4728_1.setChannelValue(MCP4728_CHANNEL_D,sp_fr_m4); // MCP4728-1 Channel-A controls setpoint for MFC-4
-            Serial.println(";");
             break;
             
             case 21:
 //            tcaselect(3);
 //            sp_fr_m5 = round(SP_12);
 //            mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m5); // MCP4728-1 Channel-A controls setpoint for MFC-5
-//            Serial.println(";");
 //            break;                    
 
             tcaselect(4);
             sp_fr_m5 = round(SP_12);
             mcp4725_1.setVoltage(sp_fr_m5,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
-            Serial.println(";");
+            Serial.print(sp_fr_m5);
+            Serial.print(";");
             break;
             
             case 22:
 //            tcaselect(3);
 //            sp_p_bpr1 = round(SP_12);
-//            mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,sp_p_bpr1); // MCP4728-1 Channel-A controls setpoint for BPR-1
-//            Serial.println(";");
+//            mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,sp_p_bpr1); // MCP4728-1 Channel-A controls setpoint for BPR-1
 //            break;
+
+
             tcaselect(5);
             sp_p_bpr1 = round(SP_12);
-            mcp4725_2.setVoltage(sp_p_bpr1,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
-            Serial.println(";");
+            mcp4725_2.setVoltage(0,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
             break;  
             }
            // mcp4728_2.setChannelValue(MCP4728_CHANNEL_C, 0);
