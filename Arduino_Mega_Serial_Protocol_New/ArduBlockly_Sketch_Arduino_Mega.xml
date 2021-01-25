@@ -1,0 +1,977 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="arduino_functions" id="Tp/N4{VCQfKt^)yyldsL" x="-536" y="-1530">
+    <statement name="LOOP_FUNC">
+      <block type="controls_if" id="8K+g/4=?(?((f68dRmI7">
+        <value name="IF0">
+          <block type="logic_compare" id="4;)*:p;o=OzIL?Q*CJRQ">
+            <field name="OP">GT</field>
+            <value name="A">
+              <block type="serial_available" id="3EJO!9MhOU=HN|jU}K=[">
+                <field name="SERIAL_ID">Serial</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="F0y7%s5?,*!!^-2P!}Tx">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="variables_set" id="XKk)kY/Q_nMq%Bng#c[I">
+            <field name="VAR">serial_input_string</field>
+            <value name="VALUE">
+              <block type="readserial" id="gs#X,.::S{dp]~_rbuEf">
+                <field name="Serial">Serial</field>
+                <field name="readString">TRUE</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="?!FF#:R6EA^t]f.)9/}L">
+                <field name="VAR">CMD</field>
+                <value name="VALUE">
+                  <block type="variables_set_type" id="?aP,FGEr-*uFDl,?hv3F">
+                    <field name="VARIABLE_SETTYPE_TYPE">TEXT</field>
+                    <value name="VARIABLE_SETTYPE_INPUT">
+                      <block type="text" id="=_Opi(7#/.%)t/T|/*-D">
+                        <field name="TEXT">serial_input_string.substring(1,3)</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="n.UjF7W2%~clI~dj5|BD">
+                    <field name="VAR">INST_Code</field>
+                    <value name="VALUE">
+                      <block type="variables_set_type" id="3-c_sLPXezfq%:Na_KYy">
+                        <field name="VARIABLE_SETTYPE_TYPE">TEXT</field>
+                        <value name="VARIABLE_SETTYPE_INPUT">
+                          <block type="text" id="o/^)u-1_TAtZ!ECXtd!C">
+                            <field name="TEXT">serial_input_string.substring(3,6)</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set" id="XB_I[1pW35!7(^#JO{J}">
+                        <field name="VAR">INST_SN</field>
+                        <value name="VALUE">
+                          <block type="variables_set_type" id="G?,qpz)^_B%)b%:6dnBW">
+                            <field name="VARIABLE_SETTYPE_TYPE">TEXT</field>
+                            <value name="VARIABLE_SETTYPE_INPUT">
+                              <block type="text" id="*RKNrFK=;MPd;kOe8}oZ">
+                                <field name="TEXT">serial_input_string.substring(6,8)</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set" id="0(o7X}d(c:tN_E[,RC^;">
+                            <field name="VAR">INST_N</field>
+                            <value name="VALUE">
+                              <block type="variables_set_type" id="^@9;]W7J3lvvbg0ydi7V">
+                                <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                <value name="VARIABLE_SETTYPE_INPUT">
+                                  <block type="string_to" id="(KBjmQUEwri%HC{70Q)S">
+                                    <field name="format">toInt</field>
+                                    <value name="str_input">
+                                      <block type="variables_get" id="9exDT+A.?3L|P{~56yxH">
+                                        <field name="VAR">INST_SN</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variables_set" id="Ye`qZquT|=C6Je0aJ:m1">
+                                <field name="VAR">len</field>
+                                <value name="VALUE">
+                                  <block type="variables_set_type" id="DMuTd?Q;}re=|-Z3#8Ex">
+                                    <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                    <value name="VARIABLE_SETTYPE_INPUT">
+                                      <block type="text_length" id="L*T5gbwT92S?^)2G1:i*">
+                                        <value name="VALUE">
+                                          <block type="variables_get" id="7?-Xwve||t+TfxvmJ]*P">
+                                            <field name="VAR">INST_N</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="controls_if" id="*UhQ`P/9(*GGTMdJma`I">
+                                    <value name="IF0">
+                                      <block type="logic_compare" id="]vC3PlirDF+J*fn7u`Sk">
+                                        <field name="OP">EQ</field>
+                                        <value name="A">
+                                          <block type="variables_get" id="Jul.WLBxbr26(6e|,1q?">
+                                            <field name="VAR">len</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_number" id="f-T7pV:d*:Gf{4#Nr2+D">
+                                            <field name="NUM">8</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="DO0">
+                                      <block type="variables_set" id="ix6oCS1cvVitRfi{u(k-">
+                                        <field name="VAR">setpoint</field>
+                                        <value name="VALUE">
+                                          <block type="variables_set_type" id="Jr?[*rEt;1PmjsUc.nFM">
+                                            <field name="VARIABLE_SETTYPE_TYPE">TEXT</field>
+                                            <value name="VARIABLE_SETTYPE_INPUT">
+                                              <block type="text" id="Cs5;EmFf:BRg0v)Q#otE">
+                                                <field name="TEXT">serial_input_string.substring(9)</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="controls_if" id="5`d8xlB{@vI@5INg=](y">
+                                        <mutation elseif="1"></mutation>
+                                        <value name="IF0">
+                                          <block type="logic_compare" id="_}9S?L}+*Z5d!npI?0Tu">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="ij0m.-`gE`/t0GMSZ8mS">
+                                                <field name="VAR">CMD</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="text" id="n=1Uzln%rnX1TiU?gvM^">
+                                                <field name="TEXT">PV</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="controls_if" id="nLp3Kgk9ZLb%.q[s]8Od">
+                                            <mutation elseif="3"></mutation>
+                                            <value name="IF0">
+                                              <block type="logic_compare" id="].6TmD0}Qk3CRB`ymsbH">
+                                                <field name="OP">EQ</field>
+                                                <value name="A">
+                                                  <block type="variables_get" id="`yOyic]3sC!ax`hKo-_p">
+                                                    <field name="VAR">INST_Code</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="text" id="1DTMi@;2BCG*.{7#KebC">
+                                                    <field name="TEXT">MFC</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <statement name="DO0">
+                                              <block type="variables_set" id="zk#NdcF1kjvG~IUDI]k5">
+                                                <field name="VAR">flow_signal_mfc1</field>
+                                                <value name="VALUE">
+                                                  <block type="variables_set_type" id="h0fLqjmbIKWGe#49X`o8">
+                                                    <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                    <value name="VARIABLE_SETTYPE_INPUT">
+                                                      <block type="math_arithmetic" id="^igVZq[9l/]6EoEy~B:e">
+                                                        <field name="OP">MINUS</field>
+                                                        <value name="A">
+                                                          <block type="io_analogread" id="0tY]bn5S^B%6x_F#Lbu6">
+                                                            <field name="PIN">A0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <block type="io_analogread" id="XJ0/~:|]@F@huBA3b^,~">
+                                                            <field name="PIN">A1</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set" id=";Z-CEzV7MkR{LYAl9YQb">
+                                                    <field name="VAR">input_mfc_1</field>
+                                                    <value name="VALUE">
+                                                      <block type="base_map" id="T+rOJ`:[_:U!um(/5lu.">
+                                                        <value name="NUM">
+                                                          <block type="variables_get" id="bfuS,n8xU|0Wx2/oPDZ/">
+                                                            <field name="VAR">flow_signal_mfc1</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="BMIN">
+                                                          <block type="math_number" id="]f*T@B)ETy}jyuwqY_wN">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="BMAX">
+                                                          <block type="math_number" id="QLhCU!YTRddiC8`e~6mU">
+                                                            <field name="NUM">1023</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DMIN">
+                                                          <block type="math_number" id="scvn1Mb4JY4[5.|rfyxb">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DMAX">
+                                                          <block type="math_number" id="%YBB)miZDjebGdXREo!f">
+                                                            <field name="NUM">5000</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="serial_print" id="`EkM)6Lmg^;n,-qy5{}Y">
+                                                        <field name="SERIAL_ID">Serial</field>
+                                                        <field name="NEW_LINE">TRUE</field>
+                                                        <value name="CONTENT">
+                                                          <block type="variables_get" id=":C*%:SH%5G-=|E){v[dB">
+                                                            <field name="VAR">input_mfc_1</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="variables_set" id="ejF~q!s~A[vMU#*xu]}H">
+                                                            <field name="VAR">flow_signal_mfc2</field>
+                                                            <value name="VALUE">
+                                                              <block type="variables_set_type" id="Rl/7p-*MS%BeZ7NwKO{r">
+                                                                <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                <value name="VARIABLE_SETTYPE_INPUT">
+                                                                  <block type="math_arithmetic" id="9.nB)az*a_7^rY`i03,7">
+                                                                    <field name="OP">MINUS</field>
+                                                                    <value name="A">
+                                                                      <block type="io_analogread" id="#dfXA`bHfN?y~a%c.2#G">
+                                                                        <field name="PIN">A2</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="io_analogread" id="Us!y)~:o6h*F7jX_R^ui">
+                                                                        <field name="PIN">A3</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="variables_set" id=")/W:KkZ#42VzsK54l**7">
+                                                                <field name="VAR">input_mfc_2</field>
+                                                                <value name="VALUE">
+                                                                  <block type="base_map" id="MTXDrLKZtuR:B(aNa/cl">
+                                                                    <value name="NUM">
+                                                                      <block type="variables_get" id="Z0WmdMYs|Zkc+3!*dmr7">
+                                                                        <field name="VAR">flow_signal_mfc2</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="BMIN">
+                                                                      <block type="math_number" id="5E|p(sJMv4R?^`=KF!I2">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="BMAX">
+                                                                      <block type="math_number" id="RJ,8kALD_qdfAJ~ov%Wf">
+                                                                        <field name="NUM">1023</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="DMIN">
+                                                                      <block type="math_number" id="/yO6NAW,`ujhS}IoXT^}">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="DMAX">
+                                                                      <block type="math_number" id="aDFVeZCI(xyGRwx]oNL7">
+                                                                        <field name="NUM">5000</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="serial_print" id="5QLl-EQc1iAfg_GQR7o4">
+                                                                    <field name="SERIAL_ID">Serial</field>
+                                                                    <field name="NEW_LINE">TRUE</field>
+                                                                    <value name="CONTENT">
+                                                                      <block type="variables_get" id="O6oj;V#AQClHaTQz[i/z">
+                                                                        <field name="VAR">input_mfc_2</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="D]5Bhcs|vc)Jvl:/A%jn">
+                                                                        <field name="VAR">flow_signal_mfc3</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="variables_set_type" id="}+?UiKNr-(M;G^-%0@Hi">
+                                                                            <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                            <value name="VARIABLE_SETTYPE_INPUT">
+                                                                              <block type="math_arithmetic" id="i?PE*M#FxS[@SdrJChx1">
+                                                                                <field name="OP">MINUS</field>
+                                                                                <value name="A">
+                                                                                  <block type="io_analogread" id="oNlecf#TG@5^kqx,[Byw">
+                                                                                    <field name="PIN">A4</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <block type="io_analogread" id=";z)];)wD%C*[EJN;kb!E">
+                                                                                    <field name="PIN">A5</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="55R*5}yc`3i/RA:taGwQ">
+                                                                            <field name="VAR">input_mfc_3</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="base_map" id="PeZp}KwKLba!(%Ke`Y[,">
+                                                                                <value name="NUM">
+                                                                                  <block type="variables_get" id="A.xuAsu.V[uBDJd8Ez4q">
+                                                                                    <field name="VAR">flow_signal_mfc3</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="BMIN">
+                                                                                  <block type="math_number" id="z#40GaP)(XFdy!A]K;2!">
+                                                                                    <field name="NUM">0</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="BMAX">
+                                                                                  <block type="math_number" id="T0.=fb,)l-fG;ZPrxk+O">
+                                                                                    <field name="NUM">1023</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="DMIN">
+                                                                                  <block type="math_number" id="Ix]pK]3G?J=]fZtG-t%!">
+                                                                                    <field name="NUM">0</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="DMAX">
+                                                                                  <block type="math_number" id="eX[|.?IqhMnsT4NuEaEb">
+                                                                                    <field name="NUM">5000</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="serial_print" id="Bi6V`nB[:JBn6:.+#QLX">
+                                                                                <field name="SERIAL_ID">Serial</field>
+                                                                                <field name="NEW_LINE">TRUE</field>
+                                                                                <value name="CONTENT">
+                                                                                  <block type="variables_get" id=".1wnDg[.E{VTj,NA`f_s">
+                                                                                    <field name="VAR">input_mfc_3</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="variables_set" id="?nSKp:l;EzB.Ql*#xDb)">
+                                                                                    <field name="VAR">flow_signal_mfc4</field>
+                                                                                    <value name="VALUE">
+                                                                                      <block type="variables_set_type" id="T!a3rZZ@v9M=hf,Bv2p(">
+                                                                                        <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                                        <value name="VARIABLE_SETTYPE_INPUT">
+                                                                                          <block type="math_arithmetic" id="eFBwuuxLy3P[j_!_jJto">
+                                                                                            <field name="OP">MINUS</field>
+                                                                                            <value name="A">
+                                                                                              <block type="io_analogread" id="Lv_:l:MBPGQ{eVN3QSqq">
+                                                                                                <field name="PIN">A6</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="B">
+                                                                                              <block type="io_analogread" id="1AqF}GZ|V.rsoLPuTR1.">
+                                                                                                <field name="PIN">A7</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="variables_set" id="hJYPSQvG#qM]9lS/ZAhA">
+                                                                                        <field name="VAR">input_mfc_4</field>
+                                                                                        <value name="VALUE">
+                                                                                          <block type="base_map" id="7rM@s?D)SS?E8Fmb%Zs@">
+                                                                                            <value name="NUM">
+                                                                                              <block type="variables_get" id="NZ%8J:b:v(j0cbmIs?d|">
+                                                                                                <field name="VAR">flow_signal_mfc4</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="BMIN">
+                                                                                              <block type="math_number" id="G-9JrqJvlmHx[(hQ/a*C">
+                                                                                                <field name="NUM">0</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="BMAX">
+                                                                                              <block type="math_number" id="#[H{u7V]},U+.!GZ?{L{">
+                                                                                                <field name="NUM">1023</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="DMIN">
+                                                                                              <block type="math_number" id="%zwG9i|y-;4::Zh%63JF">
+                                                                                                <field name="NUM">0</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="DMAX">
+                                                                                              <block type="math_number" id=":bi`3=@*ceCqkVu_iU?m">
+                                                                                                <field name="NUM">5000</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="serial_print" id="0OF;OUS?oaVHT!I=y!@H">
+                                                                                            <field name="SERIAL_ID">Serial</field>
+                                                                                            <field name="NEW_LINE">TRUE</field>
+                                                                                            <value name="CONTENT">
+                                                                                              <block type="variables_get" id="IVHP!@9kre7,_TV+)FKH">
+                                                                                                <field name="VAR">input_mfc_4</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="variables_set" id=":4h{[ZMGr%Gd`^z5-gki">
+                                                                                                <field name="VAR">input_mfc_5</field>
+                                                                                                <value name="VALUE">
+                                                                                                  <block type="variables_set_type" id="w;3DcU^gWuSF+V~r;n8O">
+                                                                                                    <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                                                    <value name="VARIABLE_SETTYPE_INPUT">
+                                                                                                      <block type="math_arithmetic" id="Sqt4ZP5PR/M8mPza=pzV">
+                                                                                                        <field name="OP">MINUS</field>
+                                                                                                        <value name="A">
+                                                                                                          <block type="io_analogread" id="PGqJP+%x8/UdIw%s*0VG">
+                                                                                                            <field name="PIN">A8</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="B">
+                                                                                                          <block type="io_analogread" id="5%akXgi7KP~8chtwT+`S">
+                                                                                                            <field name="PIN">A9</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="variables_set" id="u+v0@vopPD;RY~?H(:%t">
+                                                                                                    <field name="VAR">input_mfc_5</field>
+                                                                                                    <value name="VALUE">
+                                                                                                      <block type="base_map" id="72oum@K,WZ{%t^7iDl=K">
+                                                                                                        <value name="NUM">
+                                                                                                          <block type="variables_get" id="GS~PR(FS4`6PoTO/M)n1">
+                                                                                                            <field name="VAR">flow_signal_mfc5</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="BMIN">
+                                                                                                          <block type="math_number" id="d}VA:;y0zXboXHkac6-G">
+                                                                                                            <field name="NUM">0</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="BMAX">
+                                                                                                          <block type="math_number" id="Dgvl`-YF)Gd(j31f%`Ka">
+                                                                                                            <field name="NUM">1023</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="DMIN">
+                                                                                                          <block type="math_number" id="GOHlu,z1zk!17:Y@x2[P">
+                                                                                                            <field name="NUM">0</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="DMAX">
+                                                                                                          <block type="math_number" id="!N!T@R9Y_G5Vb_P*p_}+">
+                                                                                                            <field name="NUM">5000</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="serial_print" id="~lLq-gXTeHEU7uaG{QM=">
+                                                                                                        <field name="SERIAL_ID">Serial</field>
+                                                                                                        <field name="NEW_LINE">TRUE</field>
+                                                                                                        <value name="CONTENT">
+                                                                                                          <block type="variables_get" id=")hNHr{eRDJOSn?u}xnMC">
+                                                                                                            <field name="VAR">input_mfc_5</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </statement>
+                                            <value name="IF1">
+                                              <block type="logic_compare" id="G@65B/9sr~4JCe?]o,s4">
+                                                <field name="OP">EQ</field>
+                                                <value name="A">
+                                                  <block type="variables_get" id=")Nl)/1vEZBaBab!L9OOs">
+                                                    <field name="VAR">INST_Code</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="text" id="Q!7q39`,J4!KG|!EuWVJ">
+                                                    <field name="TEXT">BPR</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <statement name="DO1">
+                                              <block type="variables_set" id=";gX?cW;[%QU%a-oU]fyM">
+                                                <field name="VAR">pressure_signal_bpr1</field>
+                                                <value name="VALUE">
+                                                  <block type="variables_set_type" id="0Xe4K,me`LdB?nXszW1~">
+                                                    <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                    <value name="VARIABLE_SETTYPE_INPUT">
+                                                      <block type="io_analogread" id="Wilb)pa;OHeqol6/:g[n">
+                                                        <field name="PIN">A14</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set" id="DHv/HSr#v^rGs5*OHyUo">
+                                                    <field name="VAR">input_bpr_1</field>
+                                                    <value name="VALUE">
+                                                      <block type="base_map" id="xh,DfdM#8ULQn*;,:QhT">
+                                                        <value name="NUM">
+                                                          <block type="variables_get" id="(zFpz(HzWn;Iw-|^W7/X">
+                                                            <field name="VAR">pressure_signal_bpr1</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="BMIN">
+                                                          <block type="math_number" id="x.z-A@..P+/B;[1i,-aG">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="BMAX">
+                                                          <block type="math_number" id="5FL+,!nmXi+z2cBfC9#R">
+                                                            <field name="NUM">1023</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DMIN">
+                                                          <block type="math_number" id="{6Df_owSI2`yNXXSWAo~">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DMAX">
+                                                          <block type="math_number" id="8v31xMd()s~QgDW*;}s%">
+                                                            <field name="NUM">5000</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="serial_print" id="N12HBju@r7}@=HxZFD#G">
+                                                        <field name="SERIAL_ID">Serial</field>
+                                                        <field name="NEW_LINE">TRUE</field>
+                                                        <value name="CONTENT">
+                                                          <block type="variables_get" id="{Q?b8+r=7twj9(Cp/EXB">
+                                                            <field name="VAR">input_bpr_1</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </statement>
+                                            <value name="IF2">
+                                              <block type="logic_compare" id="_)=RgFU@0,KdQUgMEr8=">
+                                                <field name="OP">EQ</field>
+                                                <value name="A">
+                                                  <block type="variables_get" id="SXN^2JqwQAK:R!JD~;kf">
+                                                    <field name="VAR">INST_Code</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="text" id="]MdJX`+KCD|I|z/Z||P-">
+                                                    <field name="TEXT">ADC</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <statement name="DO2">
+                                              <block type="variables_set" id="BfgAODv=PHQt?ZFi9}YQ">
+                                                <field name="VAR">flow_signal_mfm1</field>
+                                                <value name="VALUE">
+                                                  <block type="variables_set_type" id="if{||R?,nJl73vhr-]w.">
+                                                    <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                    <value name="VARIABLE_SETTYPE_INPUT">
+                                                      <block type="text" id="LgKDQ7D`I7zeR!_A2DhA">
+                                                        <field name="TEXT">ads1115_1.readADC_Differential_0_1()</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="variables_set" id="g`Ftp2,ryHgK*wW@-H^9">
+                                                    <field name="VAR">input_mfm_1</field>
+                                                    <value name="VALUE">
+                                                      <block type="base_map" id="|T@NUZ}{7|18Ta31pD,y">
+                                                        <value name="NUM">
+                                                          <block type="variables_get" id="-a}!@z!_cuiC/G9{m).w">
+                                                            <field name="VAR">flow_signal_mfm1</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="BMIN">
+                                                          <block type="math_number" id="{bxNf1j?qhe!v+nv)xFC">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="BMAX">
+                                                          <block type="math_number" id="Uy;UH,`9HO2cMhfx/]IE">
+                                                            <field name="NUM">65535</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DMIN">
+                                                          <block type="math_number" id="^dY@k}3QIj|Qd!u9m!B#">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="DMAX">
+                                                          <block type="math_number" id="6mSyZtBAS0B?0V?io~2i">
+                                                            <field name="NUM">5000</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="serial_print" id="Itxnf.V];d]Z(g.j`PzI">
+                                                        <field name="SERIAL_ID">Serial</field>
+                                                        <field name="NEW_LINE">TRUE</field>
+                                                        <value name="CONTENT">
+                                                          <block type="variables_get" id="+0c6-(%gMRedgx:hX;7d">
+                                                            <field name="VAR">input_mfm_1</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="variables_set" id="z1W6:k+/J?WRG5p9{bo,">
+                                                            <field name="VAR">flow_signal_mfm2</field>
+                                                            <value name="VALUE">
+                                                              <block type="variables_set_type" id="nB+KUlf3GaWdX,/NzMxf">
+                                                                <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                <value name="VARIABLE_SETTYPE_INPUT">
+                                                                  <block type="text" id="H7H)|)%sWB{hpT5)CF7L">
+                                                                    <field name="TEXT">ads1115_1.readADC_Differential_2_3()</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="variables_set" id="c4kb(eSUaE4(d(jgDXfQ">
+                                                                <field name="VAR">input_mfm_2</field>
+                                                                <value name="VALUE">
+                                                                  <block type="base_map" id="o@v`]tV.bF?6d!M(npM{">
+                                                                    <value name="NUM">
+                                                                      <block type="variables_get" id="UiO7AbGHs__n1sb6LVlk">
+                                                                        <field name="VAR">concentration_signal_ndir</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="BMIN">
+                                                                      <block type="math_number" id="I3s~PwU3[FOI/O4LNuO9">
+                                                                        <field name="NUM">0</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="BMAX">
+                                                                      <block type="math_number" id=".Zb8t;P[_UO1LnL?F()E">
+                                                                        <field name="NUM">65535</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="DMIN">
+                                                                      <block type="math_number" id="Jq^0jVvSp-P{kIbqG%x=">
+                                                                        <field name="NUM">1000</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="DMAX">
+                                                                      <block type="math_number" id="R+00qw,1sr/B}A}zBjt2">
+                                                                        <field name="NUM">5000</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="serial_print" id="8=2e(.kPk;tNV./}*O!L">
+                                                                    <field name="SERIAL_ID">Serial</field>
+                                                                    <field name="NEW_LINE">TRUE</field>
+                                                                    <value name="CONTENT">
+                                                                      <block type="variables_get" id="0JJ,g{=d~0ZD}@vh@r~Y">
+                                                                        <field name="VAR">input_mfm_2</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="variables_set" id="^PlozUi7MJYpVZk9NPUd">
+                                                                        <field name="VAR">pressure_signal_pt1</field>
+                                                                        <value name="VALUE">
+                                                                          <block type="variables_set_type" id=";wZTKv4z}{e+pN,aSvdq">
+                                                                            <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                            <value name="VARIABLE_SETTYPE_INPUT">
+                                                                              <block type="text" id="/T}#S/WJ(QL3:ji=9fs|">
+                                                                                <field name="TEXT">ads1115_2.readADC_Differential_0_1()</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="variables_set" id="~94_RHO@YKZ4XT4#ssD~">
+                                                                            <field name="VAR">input_pt_1</field>
+                                                                            <value name="VALUE">
+                                                                              <block type="base_map" id="QNJ]T7@N%42Hc?NGq105">
+                                                                                <value name="NUM">
+                                                                                  <block type="variables_get" id="X`7ArHYVMR:O6okr*HDW">
+                                                                                    <field name="VAR">pressure_signal_pt1</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="BMIN">
+                                                                                  <block type="math_number" id="}d63v6xnTXi2{XviUVQe">
+                                                                                    <field name="NUM">0</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="BMAX">
+                                                                                  <block type="math_number" id="Zf.#s8dIfxi1EcStPIjA">
+                                                                                    <field name="NUM">65535</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="DMIN">
+                                                                                  <block type="math_number" id="~e%R!W0[txJZJOokL7y~">
+                                                                                    <field name="NUM">0</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="DMAX">
+                                                                                  <block type="math_number" id="G4?-0816w;f6^qg=-fVp">
+                                                                                    <field name="NUM">5000</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="serial_print" id=";h0rRb2i[s2fCo?l)0(*">
+                                                                                <field name="SERIAL_ID">Serial</field>
+                                                                                <field name="NEW_LINE">TRUE</field>
+                                                                                <value name="CONTENT">
+                                                                                  <block type="variables_get" id="KZl/Bzk*|2Ux1eJ~0-c-">
+                                                                                    <field name="VAR">input_pt_1</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="variables_set" id="vjk!fye!R*lx#R[wWdz_">
+                                                                                    <field name="VAR">pressure_signal_pt2</field>
+                                                                                    <value name="VALUE">
+                                                                                      <block type="variables_set_type" id="n0{}D#TbQIuYcHe=)X+G">
+                                                                                        <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                                        <value name="VARIABLE_SETTYPE_INPUT">
+                                                                                          <block type="text" id="?mZ?H0s+Hjh]ya^G]}`S">
+                                                                                            <field name="TEXT">ads1115_2.readADC_SingleEnded(2)</field>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="variables_set" id="A5QMY%qWEt.BZy@Xb~B4">
+                                                                                        <field name="VAR">input_pt_2</field>
+                                                                                        <value name="VALUE">
+                                                                                          <block type="base_map" id="?,W8*SObt2aqm`w?LXF8">
+                                                                                            <value name="NUM">
+                                                                                              <block type="variables_get" id=";UQ=2dv~WFA,efbdvq`.">
+                                                                                                <field name="VAR">pressure_signal_pt2</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="BMIN">
+                                                                                              <block type="math_number" id="-g6ZTG{14t|3x~C|*V2v">
+                                                                                                <field name="NUM">0</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="BMAX">
+                                                                                              <block type="math_number" id="4UuXx_dtci]Mx(erPj{K">
+                                                                                                <field name="NUM">65535</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="DMIN">
+                                                                                              <block type="math_number" id=")1Q5PQVfJ*uGXj2n67;K">
+                                                                                                <field name="NUM">0</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <value name="DMAX">
+                                                                                              <block type="math_number" id="E^9@YHk33+nlSMS56#:3">
+                                                                                                <field name="NUM">5000</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="serial_print" id="8.d@fxU*{U?{X)3Q#X+s">
+                                                                                            <field name="SERIAL_ID">Serial</field>
+                                                                                            <field name="NEW_LINE">TRUE</field>
+                                                                                            <value name="CONTENT">
+                                                                                              <block type="variables_get" id="}HW]%vFMS92DZeqs?-9h">
+                                                                                                <field name="VAR">input_pt_2</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="variables_set" id="K{uW%JWqz0r;JsIXOeU^">
+                                                                                                <field name="VAR">concentration_signal_ndir</field>
+                                                                                                <value name="VALUE">
+                                                                                                  <block type="variables_set_type" id="h;)oh+PwGB6GL+=lw,-o">
+                                                                                                    <field name="VARIABLE_SETTYPE_TYPE">NUMBER</field>
+                                                                                                    <value name="VARIABLE_SETTYPE_INPUT">
+                                                                                                      <block type="text" id="__n%{;9=O;{SWP@!#fT.">
+                                                                                                        <field name="TEXT">ads1115_3.readADC_Differential_0_1()</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="variables_set" id="[#+{a~A+p47^Ce(w!Mg|">
+                                                                                                    <field name="VAR">input_ndir</field>
+                                                                                                    <value name="VALUE">
+                                                                                                      <block type="base_map" id="3}vCJ3NP24r;B]Nr7M!H">
+                                                                                                        <value name="NUM">
+                                                                                                          <block type="variables_get" id="=(*uw{vfC0mU`S?`LSf{">
+                                                                                                            <field name="VAR">concentration_signal_ndir</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="BMIN">
+                                                                                                          <block type="math_number" id="tNr_!ckuf8~_Wk5a`S/F">
+                                                                                                            <field name="NUM">0</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="BMAX">
+                                                                                                          <block type="math_number" id="iuHCA@cfi.6aGL,MsCkX">
+                                                                                                            <field name="NUM">65535</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="DMIN">
+                                                                                                          <block type="math_number" id="J`(2OWKPCJi2]HQ1rEYe">
+                                                                                                            <field name="NUM">0</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                        <value name="DMAX">
+                                                                                                          <block type="math_number" id="oWGl5?r4MfOwo:RXgXI,">
+                                                                                                            <field name="NUM">5000</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="serial_print" id="!V@Zwxw2b0w;Xq9%Hvc%">
+                                                                                                        <field name="SERIAL_ID">Serial</field>
+                                                                                                        <field name="NEW_LINE">TRUE</field>
+                                                                                                        <value name="CONTENT">
+                                                                                                          <block type="variables_get" id="ol#|#u+cJb,vnv8nZw0N">
+                                                                                                            <field name="VAR">input_ndir</field>
+                                                                                                          </block>
+                                                                                                        </value>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </statement>
+                                            <value name="IF3">
+                                              <block type="logic_compare" id="X:asf2I7hP_1F4qM.sl@">
+                                                <field name="OP">EQ</field>
+                                                <value name="A">
+                                                  <block type="variables_get" id="itiJ;WJiOuo^0|+QH4.0">
+                                                    <field name="VAR">INST_Code</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="text" id="+ynijT5xKrTE5JzoE;rU">
+                                                    <field name="TEXT">PTC</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                        <value name="IF1">
+                                          <block type="logic_compare" id="S;s-~W8Mvr:jYWOu`*4`">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="N?lQkjs-0gj.e1Fsx]aj">
+                                                <field name="VAR">CMD</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="text" id="+s`tgD^?}nsFG+Cbuwd`">
+                                                <field name="TEXT">RLY</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO1">
+                                          <block type="variables_set" id="|jnpD(X!+egiv=/V{(+L">
+                                            <field name="VAR">RLY_POS</field>
+                                            <value name="VALUE">
+                                              <block type="variables_set_type" id="]xrY(kRnpfBq?12^wOSc">
+                                                <field name="VARIABLE_SETTYPE_TYPE">TEXT</field>
+                                                <value name="VARIABLE_SETTYPE_INPUT">
+                                                  <block type="text" id="X%fiB9Hie5Fx@2cDo,EF">
+                                                    <field name="TEXT">serial_input_string.substring(6)</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

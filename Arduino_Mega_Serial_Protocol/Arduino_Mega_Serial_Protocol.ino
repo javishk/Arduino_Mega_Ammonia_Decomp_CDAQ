@@ -1,4 +1,3 @@
-
 // MAX6675 library - Version: Latest
 #include <max6675.h>
 
@@ -18,14 +17,12 @@
 #include <Adafruit_MAX31856.h>
 #define DRDY_PIN 13
 
-// Adafruit TCA9548A Multiplexer definition
-#define TCAADDR 0x70
-
+// Adadfruit MCP4725 library - Version: Latest
 #include <Adafruit_MCP4725.h>
 
 /*
   -> This sketch is a combination of the following sketches repared to read and
-  write the analog signals using the analog in pins and PWM pins on the Arduino
+  print the analog signals using the analog in pins and PWM pins on the Arduino
   Mega board.The following list shares more light on the usefullness of this
   code.
   -> Pins A0 to A15 = Analog Input pins = Signals from 5 MFCs (10 pins), 2 MFMs
@@ -73,9 +70,8 @@ const int Relay4 = 5; // Sunfounder 4-Channel Relay, Channel#4 Switch
   const int ****** = 9;
   const int ****** = 10;
   const int ****** = 11;
-  const int ****** = 12;
-  const int ****** = 13; //Already defined at the start of the code
-*/
+  const int ****** = 12; //Already defined at the start of the code */
+  const int led = 13; //Pin for resetting or restarting the arduino board
 
 // (Serial) Communication Header Pins
 /*
@@ -167,12 +163,7 @@ int p_pt2;  // [On Adafruit ADS1115]
 int16_t nh3_conc_ndir; // Address 0x48 on pins A0-A1 [On Adafruit ADS1115]
 int16_t nh3_conc_ppbLAD; // Address 0x48 on pins A2-A3 [On Adafruit ADS1115]
 
-int sp_fr_m1; // variable to store the setpoint and send as argument to Arduino [Channels for all outputs on Adafruit DAC4728]
-int sp_fr_m2; // sp = setpint, fr = flow rate, m = mfc
-int sp_fr_m3;
-int sp_fr_m4;
-int sp_fr_m5;
-int sp_p_bpr1; // sp = setpoint, p = pressure, bpr = back pressure regulator
+int t1, t2, t3, t4, t5, t6, t7;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Defining the Objects for various Adafruit Max31856 thermocouple logging
@@ -188,18 +179,6 @@ Adafruit_MAX31856 tc5 = Adafruit_MAX31856(TC5CS, TC5DI, TC5DO, TC5CLK);
 MAX6675 tc6 = MAX6675(TC6CLK, TC6CS, TC6DO);
 MAX6675 tc7 = MAX6675(TC7CLK, TC7CS, TC7DO);
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Sub-sketch to choose from the I2C devices or boards connected to the Adafruit TCA9238A multiplxer breakout board
-void tcaselect(uint8_t i) {
-  if (i > 7)
-    return;
-
-  Wire.beginTransmission(TCAADDR);
-  Wire.write(1 << i);
-  Wire.endTransmission();
-}
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Defining the Objects for various Adafruit I2C devices alongwith their addresses and decriptions
 Adafruit_ADS1115 ads1115_1(0x48); // Construct an object with the module Adafruit ADS1115
@@ -208,18 +187,9 @@ Adafruit_ADS1115 ads1115_1(0x48); // Construct an object with the module Adafrui
 Adafruit_ADS1115 ads1115_2(0x49); // Construct an object with the module Adafruit ADS1115
                                   // which is a 16-bit 4-channel analog output device
                                   // (Digital to Analog Convertor) with the address (0x49)
-Adafruit_ADS1115 ads1115_3(0x4A); // Construct an object with the module Adafruit ADS1115
+//Adafruit_ADS1115 ads1115_3(0x4A); // Construct an object with the module Adafruit ADS1115
                                   // which is a 16-bit 4-channel analog output device
                                   // (Digital to Analog Convertor) with the address (0x4A)
-
-// Adafruit MCP4728 4-Channel 12-bit I2C Digital to Analog Convertor
-Adafruit_MCP4728 mcp4728_1;
-Adafruit_MCP4728 mcp4728_2;
-
-// Adafruit MCP4725 1-Channel 12-bit I2C Digital to Analog Convertor
-Adafruit_MCP4725 mcp4725_1;
-Adafruit_MCP4725 mcp4725_2;
-Adafruit_MCP4725 mcp4725_3;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Defining global variables that will be needed in void loop{} to store sub-strings obtained from the serial port via Serial.readString() command.
@@ -243,70 +213,78 @@ String RLY_POS = "";
 
 float factor_10_bit = 1;       // For arduino analog pins 0.0049
 float factor_12_bit = 1;     // For MCP4728 DAC boards 0.001221
-float factor_16_bit = 1;   // For ADS1115 ADC boards (the range of this board is from -Vref to +Vref, hence the range of 5 V is doubled a factor of 2)0.00015259
+float factor_16_bit = 1;   // For ADS1115 ADC boards (the range of this board is from -Vref to +Vref, hence the range of 5 V is doubled a factor of 0.00015259
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Setup and Initialisation part of the code for Arduino Mega to run once when
 // it loading or rebooting everytime
-void setup() {
+void setup(void) {
   Serial.begin(9600);
-  delay(5000);
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
   // Thermocouple data logger module setup and initilisaion
   // Two different types of thermocouple reading boards are uses.
   // The generic one is MAX6675 while the library used to program it is MAX6675 from Adafruit. (Note: This one can only read K type thermocouple)
   // The other one is Adafruit Max31856 while the library used to program it is ADAFRUIT_MAX31856. (This one can read a variety of 2-wire Thermcouples)
-  pinMode(DRDY_PIN,INPUT); // DRDY Pin for Adafruit MAX31856 Thermocouple Reader Module
+  // DRDY Pin for Adafruit MAX31856 Thermocouple Reader Module
   // Thermocouple TC1
+  tc1.begin();
   tc1.setThermocoupleType(MAX31856_TCTYPE_K);
-  // Serial.print("The temperature of Thermocouple TC-1 is ");
-  // Serial.print(tc1.readThermocoupleTemperature());
-  // Serial.print("°C.");
-  // Serial.print("TC-1 MAX31856 Initialised with Thermocouple Type K");
+/*   Serial.print("The temperature of Thermocouple TC-1 is ");
+   Serial.print(tc1.readThermocoupleTemperature());
+   Serial.println("°C.");
+   Serial.print("TC-1 MAX31856 Initialised with Thermocouple Type K");
+   Serial.println(";");
   
-  // Thermocouple TC2
+  // Thermocouple TC2 */
+  tc2.begin();
   tc2.setThermocoupleType(MAX31856_TCTYPE_J);
-  // Serial.print("The temperature of Thermocouple TC-2 is ");
-  // Serial.print(tc2.readThermocoupleTemperature());
-  // Serial.print("°C.");
-  // Serial.print("TC-2 MAX31856 Initialised with Thermocouple Type J");
+/*   Serial.print("The temperature of Thermocouple TC-2 is ");
+   Serial.print(tc2.readThermocoupleTemperature());
+   Serial.println("°C.");
+   Serial.print("TC-2 MAX31856 Initialised with Thermocouple Type J");
+   Serial.println(";");
 
   // Thermocouple TC3
   tc3.readCelsius();
-  // Serial.print("The temperature of Thermocouple TC-3 is ");
-  // Serial.print(tc3.readCelsius());
-  // Serial.print("°C.");
-  // Serial.print("TC-3 MAX6675 Initialised with Thermocouple Type K");
+   Serial.print("The temperature of Thermocouple TC-3 is ");
+   Serial.print(tc3.readCelsius());
+   Serial.println("°C.");
+   Serial.print("TC-3 MAX6675 Initialised with Thermocouple Type K");
+   Serial.println(";");
 
   // Thermocouple TC4
   tc4.readCelsius();  
-  // Serial.print("The temperature of Thermocouple TC-4 is ");
-  // Serial.print(tc4.readCelsius());
-  // Serial.print("°C.");
-  // Serial.print("TC-4 MAX6675 Initialised with Thermocouple Type K");
+   Serial.print("The temperature of Thermocouple TC-4 is ");
+   Serial.print(tc4.readCelsius());
+   Serial.println("°C.");
+   Serial.print("TC-4 MAX6675 Initialised with Thermocouple Type K");
+   Serial.println(";");
   
   // Thermocouple TC5
+  tc5.begin();  */
   tc5.setThermocoupleType(MAX31856_TCTYPE_J);
-  // Serial.print("The temperature of Thermocouple TC-5 is ");
-  // Serial.print(tc5.readThermocoupleTemperature());
-  // Serial.print("°C.");
-  // Serial.print("TC-5 MAX31856 Initialised with Thermocouple Type J");
-  
+/*   Serial.print("The temperature of Thermocouple TC-5 is ");
+   Serial.print(tc5.readThermocoupleTemperature());
+   Serial.println("°C.");
+   Serial.print("TC-5 MAX31856 Initialised with Thermocouple Type J");
+   Serial.println(";");
+     
   // Thermocouple TC6
   tc6.readCelsius();
-  // Serial.print("The temperature of Thermocouple TC-6 is ");
-  // Serial.print(tc6.readCelsius());
-  // Serial.print("°C.");
-  // Serial.print("TC-6 MAX6675 Initialised with Thermocouple Type K");
+   Serial.print("The temperature of Thermocouple TC-6 is ");
+   Serial.print(tc6.readCelsius());
+   Serial.println("°C.");
+   Serial.print("TC-6 MAX6675 Initialised with Thermocouple Type K");
+   Serial.println(";");
 
   // Thermocouple TC7
   tc7.readCelsius();
-  // Serial.print("The temperature of Thermocouple TC-7 is ");
-  // Serial.print(tc7.readCelsius());
-  // Serial.print("°C.");
-  // Serial.print("TC-7 MAX6675 Initialised with Thermocouple Type K");
-  // Thermocouple data logger module setup and initisation sub-sketch ends
-  
+   Serial.print("The temperature of Thermocouple TC-7 is ");
+   Serial.print(tc7.readCelsius());
+   Serial.println("°C.");
+   Serial.print("TC-7 MAX6675 Initialised with Thermocouple Type K");
+   Serial.println(";");
+  // Thermocouple data logger module setup and initisation sub-sketch ends */
   //////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -323,7 +301,7 @@ void setup() {
   pinMode(A7, INPUT);
   pinMode(A8, INPUT);
   pinMode(A9, INPUT);
- // pinMode(A10, INPUT);
+  pinMode(A10, INPUT);
  // pinMode(A11, INPUT);
  // pinMode(A12, INPUT);
  // pinMode(A13, INPUT);
@@ -331,6 +309,80 @@ void setup() {
   pinMode(A15, INPUT);
 
   // Varible definition and initialisation output
+
+  
+//  Serial.print("All pins and variables have been initialised.");
+//  Serial.println(";");
+  // Analog input configuration sub-sketch ends
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  // I2C module Objects Setup and Initialisation Sub-Sketch
+  // All I2C devices have their own addreses in hexdecimal format
+  // Some have the flexibility to choose one address from multiple addresses (usually 2 choices are available, no more than 4 choices are availables on any I2C device)
+  // If there are 2 or more I2C devices with same address connected on the same trasmission lines (SCA and SCL pins, #20 and #21 pins on Arduino Mega), there will be issues with data communication
+  // In order to avoid these issues, a multiplexer is used, multiplexer has isolated channels and lets the Arduino communicate to only one of its channel at any given point of time
+  // In our case we have 1 MCP4728 with the address 0x60 and 2 MCP4725 with the addresses 0x62 and 0x63. 
+  // The 4 addresses for ADS1115 are from 0x48 to 0x4B, in our case only 3 of them are used 0x48, 0x49 and 0x4A.
+  // Since, every module has its own unique address, so, a multiplexer is not needed and all of them are connected on a singular I2C bus.
+
+  ads1115_1.begin();    //The analog input for MFM-1 and MFM-2 is connected to this 16-bit Analog to Digital Signal Convertor
+  ads1115_2.begin();    //The analog input for PT-1 and PT-2 is connected to this 16-bit Analog to Digital Signal Convertor
+  //ads1115_3.begin();    //The analog input for NDIR and (pins A2-A3 are open) is connected to this 16-bit Analog to Digital Signal Convertor
+
+
+  
+  // I2C module Objects Setup and Initialisation Sub-Sketch complete
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 4-channel relay configuration sub-sketch
+  // Define control pins here
+  pinMode(Relay1, OUTPUT);
+  pinMode(Relay2, OUTPUT);
+  pinMode(Relay3, OUTPUT);
+  pinMode(Relay4, OUTPUT);
+
+  // Define default configuration here
+  digitalWrite(Relay1, HIGH);
+  digitalWrite(Relay2, HIGH);
+  digitalWrite(Relay3, HIGH);
+  digitalWrite(Relay4, HIGH);
+//  Serial.print("All relays have been initialised in off position.");
+//  Serial.println(";");
+//  // 4-channel relay configuration sub-sketch ends
+//  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Serial.println("--> Initialisation process complete.");
+//  Serial.println("--> All pins have been defined with specific modes");
+//  Serial.println("--> All thermocouple readers have been initialised (all of them are SPI devices)");
+//  Serial.println("--> All I2C devices have been initilised (3 ADC, 1 4-Channel DAC and 3 1-Channel DAC).");
+//  Serial.print("--> All I2C devices are connected to the I2C bus without any conflicts.");
+//  Serial.println(";");
+}
+
+/* The format for the serial commands is as follows:
+        => Starting Character = : (Colon)
+        => Command Mode = PV (Present Value) or SV (Setpoint Value)
+        => Instrument Code = AAA (3 Alphabets)
+                      - MFC = Mass Flow Controller
+                      - MFM = Mass Flow Meter
+                      - ADC = Analog to Digital Convertor
+                      - DAC = Digital to Analog Convertor
+                      - BPR = Back Pressure Regulator
+                      - _TC = Thermocouple
+                      - RYL = Relay
+        => Instrument Number = NN (00 to 99)
+        => Setpoint Value = nnn.nnn (Only for commands with SV CMD, there is no limit on the number of digits on before after the decimal point)
+        => Use ON/OFF instead of nnn.nnn for Relays       
+        => Terminaltion Character = ;
+    --> To get the paraneter value the format is :PVAAANN; for example :PVMFM02; will return the value for mass flow rate of MFM-2
+    --> To set the parameter value the format is :SVAAANNnn.nnnn; for example :SVDAC121145.235; will set the value of ABC parameter for XYZ instrument connected to 2nd channel of DAC-1
+                                                                                                       to 1145.235, in this case the it will set the mass flow rate of MFC-2 to 1145.235 
+    --> For relays, the format will be :SVRLYNNON (example :SVRYL01ON) to turn ON and :SVRYLNNOFF; (:SVRYL03OFF;) to turn OFF */
+
+void loop(void) 
+{ 
   aip_m1 = analogRead(aipm1);
   
   ain_m1 = analogRead(ainm1);
@@ -362,111 +414,9 @@ void setup() {
   aip_bpr1 = analogRead(aipbpr1);
 
   ain_bpr1 = analogRead(ainbpr1);
-  
-  // Analog input configuration sub-sketch ends
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
-  // I2C module Objects Setup and Initialisation Sub-Sketch
-  // All I2C devices have their own addreses in hexdecimal format
-  // Some have the flexibility to choose one address from multiple addresses (usually 2 choices are available, no more than 4 choices are availables on any I2C device)
-  // If there are 2 or more I2C devices with same address connected on the same trasmission lines (SCA and SCL pins, #20 and #21 pins on Arduino Mega), there will be issues with data communication
-  // In order to avoid these issues, a multiplexer is used, multiplexer has isolated channels and lets the Arduino communicate to only one of its channel at any given point of time
-  // In our case we have 2 MCP4728 with the same address 0x60 and it just comes with a singular address
-  // Hence, a TCA9538-A multiplexer is used for resolving this issue
-  // Each MCP4728 is connected to Channel#2 and Channel#3 of the multiplexer
-  // Also, there are 3 ADS1115 boards connected to Channel#1 of the multiplexer. Eventhough, all three are identical, by shorting certain pins on these boards, one of the 4 addresses can be chosen
-  // The 4 addresses for ADS1115 are from 0x48 to 0x4B and hence, all 3 can be connected to the same transmission without any issues
-  
-  // Choosing the Channel#2 (Channel#0 to Channel#7 (Total: 8 Channels))
-  // Initlialising the channels on MCP4728 breakout board present on Channel 2 of multiplexer
-//  tcaselect(2);
-//  mcp4728_1.begin();
-//  if (!mcp4728_1.begin())  
-//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-1
-//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,0); // MCP4728-1 Channel-A controls setpoint for MFC-2
-//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_C,0); // MCP4728-1 Channel-A controls setpoint for MFC-3
-//    mcp4728_1.setChannelValue(MCP4728_CHANNEL_D,0); // MCP4728-1 Channel-A controls setpoint for MFC-4 
-//    mcp4728_1.saveToEEPROM();
-//
-//  // Choosing the Channel#3 (Channel#0 to Channel#7 (Total: 8 Channels))
-//  // Initlialising the channels on MCP4728 breakout board present on Channel 3  
-//  tcaselect(3);
-//  mcp4728_2.begin();
-//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,0); // MCP4728-1 Channel-A controls setpoint for MFC-5
-//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_B,0); // MCP4728-1 Channel-A controls setpoint for BPR-1
-//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_C,0);
-//    mcp4728_2.setChannelValue(MCP4728_CHANNEL_D,0);
-//    mcp4728_2.saveToEEPROM();
-
-  tcaselect(4);
-  mcp4725_1.begin();
-      mcp4725_1.setVoltage(0,false);
-
-    tcaselect(5);
-  mcp4725_2.begin();
-      mcp4725_2.setVoltage(0,false);
-
-    tcaselect(6);
-  mcp4725_3.begin();
-      mcp4725_3.setVoltage(0,false);
-  
-  // Choosing the Channel#1 (Channel#0 to Channel#7 (Total: 8 Channels))
-  // Initlialising the channels on MCP4728 breakout board present on channels of multiplexer
-  tcaselect(1);
-  ads1115_1.begin();
-  ads1115_2.begin();
-  ads1115_3.begin();
-  // I2C module Objects Setup and Initialisation Sub-Sketch
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 4-channel relay configuration sub-sketch
-  // Define control pins here
-  pinMode(Relay1, OUTPUT);
-  pinMode(Relay2, OUTPUT);
-  pinMode(Relay3, OUTPUT);
-  pinMode(Relay4, OUTPUT);
-
-  // Define default configuration here
-  digitalWrite(Relay1, HIGH);
-  digitalWrite(Relay2, HIGH);
-  digitalWrite(Relay3, HIGH);
-  digitalWrite(Relay4, HIGH);
-//  Serial.print("All relays have been initialised in off position.");
-  // 4-channel relay configuration sub-sketch ends
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-/* The format for the serial commands is as follows:
-        => Starting Character = : (Colon)
-        => Command Mode = PV (Present Value) or SV (Setpoint Value)
-        => Instrument Code = AAA (3 Alphabets)
-                      - MFC = Mass Flow Controller
-                      - MFM = Mass Flow Meter
-                      - ADC = Analog to Digital Convertor
-                      - DAC = Digital to Analog Convertor
-                      - BPR = Back Pressure Regulator
-                      - _TC = Thermocouple
-                      - RYL = Relay
-        => Instrument Number = NN (00 to 99)
-        => Setpoint Value = nnn.nnn (Only for commands with SV CMD, there is no limit on the number of digits on before after the decimal point)
-        => Use ON/OFF instead of nnn.nnn for Relays       
-        => Terminaltion Character = ;
-    --> To get the paraneter value the format is :PVAAANN; for example :PVMFM02; will return the value for mass flow rate of MFM-2
-    --> To set the parameter value the format is :SVAAANNnn.nnnn; for example :SVDAC121145.235; will set the value of ABC parameter for XYZ instrument connected to 2nd channel of DAC-1
-                                                                                                       to 1145.235, in this case the it will set the mass flow rate of MFC-2 to 1145.235 
-    --> For relays, the format will be :SVRLYNNON (example :SVRYL01ON) to turn ON and :SVRYLNNOFF; (:SVRYL03OFF;) to turn OFF */
-
-void loop() {
-
-  inString = "";
-      CMD = "";
-      INST_Code = "";
-      INST_SN = "";
-      RLY_POS = "";
-      SSP = "";
       
-      if(Serial.available()){                             // Arduino will only run the loop if it reads that there is some incoming data from the serial port
+      
+      if(Serial.available() > 0){                             // Arduino will only run the loop if it reads that there is some incoming data from the serial port
       inString = Serial.readStringUntil(terminator);          // To read the string (and not converted value of the serial commands) until the terminator character for generating the sub-string
       //Serial.print(inString);                               
       CMD = inString.substring(1,3);                          // Storing the 2nd and 3rd character in variable CMD: PV (Present Value) or SV (Setpoint Value)
@@ -502,7 +452,7 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
                 //10-bit Resolution = 0.0049 V/bit@ Vref = 5 V
                 //Mass Flow Controllers and Mass Flow Meters
                 fr_m1 = aip_m1 - ain_m1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW)
-                Serial.print(fr_m1 * factor_10_bit);
+                Serial.print(fr_m1);
                 Serial.println(";");
                 break;
 
@@ -548,7 +498,7 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
 
             //Back Pressure Regulators and Pressure Transducers
             if (INST_Code == "BPR"){        // BPR if block starts here
-                p_bpr1 = aip_bpr1 - ain_bpr1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW) 
+                p_bpr1 = aip_bpr1; // Value still in 10-bit resolution, needs to be converted to decimal format (multiply by resolution and send value to LabVIEW) 
                 Serial.print(p_bpr1 * factor_10_bit);
                 Serial.println(";");
               }      
@@ -561,7 +511,6 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
           0x49 (all 4 pins are open) and 0x4A (PT-1 on pins A0-A1 and PT-2 on pins A2-A3)*/
           
             if (INST_Code == "ADC"){                  // ADC if block and switch case starts here
-              tcaselect(1);
               switch(INST_N){
                   case 11:                          // MFM-1
                   ads1115_1a = ads1115_1.readADC_Differential_0_1();
@@ -582,22 +531,22 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
                   break;
 
                   case 22:                          // PT-2
-                  ads1115_2b = ads1115_2.readADC_Differential_2_3();
+                  ads1115_2b = ads1115_2.readADC_SingleEnded(2);
                   Serial.print(ads1115_2b*factor_16_bit);
                   Serial.println(";");
                   break;               
 
-                  case 31:                          // NDIR
-                  ads1115_3a = ads1115_3.readADC_Differential_0_1();
-                  Serial.print(ads1115_3a*factor_16_bit);
-                  Serial.println(";");
-                  break;
-                  
-                  case 32:
-                  ads1115_3b = ads1115_3.readADC_Differential_2_3();
-                  Serial.print(ads1115_3b*factor_16_bit);
-                  Serial.println(";");
-                  break;
+//                  case 31:                          // NDIR
+//                  ads1115_3a = ads1115_3.readADC_Differential_0_1();
+//                  Serial.print(ads1115_3a*factor_16_bit);
+//                  Serial.println(";");
+//                  break;
+//                  
+//                  case 32:
+//                  ads1115_3b = ads1115_3.readADC_Differential_2_3();
+//                  Serial.print(ads1115_3b*factor_16_bit);
+//                  Serial.println(";");
+//                  break;
               }
             }
           // Analog Input Voltage Reading Sub-Sketch for I2C module channels end
@@ -605,47 +554,54 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
             
           //////////////////////////////////////////////////////////////////////////////////////////////////////
           // Thermocouple data logger module sub-sketch for continuous operation
-            if (INST_Code == "_TC"){                  // Thermocouple if block and switch case starts here
+            if (INST_Code == "PTC"){                  // Thermocouple if block and switch case starts here
             switch(INST_N){
             // Thermocouple TC-1
               case 1:
-                Serial.print(tc1.readThermocoupleTemperature());
+                 t1 = tc1.readThermocoupleTemperature();
+                Serial.print(t1);
                 Serial.println(";");
                 break;
 
             // Thermocouple TC-2
               case 2:
-                Serial.print(tc2.readThermocoupleTemperature());
+                t2 = tc2.readThermocoupleTemperature();
+                Serial.print(t2);
                 Serial.println(";");
                 break;          
 
             // Thermocouple TC-3
               case 3:  
-                Serial.print(tc3.readCelsius());
+                t3 = tc3.readCelsius();
+                Serial.print(t3);
                 Serial.println(";");
                 break;
 
             // Thermocouple TC-4
               case 4:
-                Serial.print(tc4.readCelsius());
+               t4 = tc4.readCelsius();
+                Serial.print(t4);
                 Serial.println(";");
                 break;
 
             // Thermocouple TC-5
               case 5:
-                Serial.print(tc5.readThermocoupleTemperature());
+               t5 = tc5.readThermocoupleTemperature();
+                Serial.print(t5);
                 Serial.println(";");
                 break;        
             
             // Thermocouple TC-6
               case 6:
-                Serial.print(tc6.readCelsius());
+              t6 = tc6.readCelsius();
+                Serial.print(t6);
                 Serial.println(";");
                 break;
 
             // Thermocouple TC-7
               case 7:
-                Serial.print(tc7.readCelsius());
+              t7 = tc7.readCelsius();
+                Serial.print(t7);
                 Serial.println(";");
                 break;
               }
@@ -655,7 +611,7 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
           //////////////////////////////////////////////////////////////////////////////////////////////////////  
           /////////////////////////////////////////////////////////////////////////////////////////////
 
-          // All read operations end here. Hereon, in the code, only write operations are created.
+          // All read operations end here. Hereon, in the code, only print operations are created.
 
   /////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -663,63 +619,9 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
     else if (CMD == "SV"){                // The SV if block starts here
         SSP = inString.substring(8);
         //Serial.print(SSP);
-        SetValue = SSP.toFloat();
-        float SP_12 = SetValue/factor_12_bit;            // Convert decimnal to 12-bit base (Resolution = 0.001122 V/bit)
+        SetValue = SSP.toInt();
         //Serial.print("Command Passed the variable");
        // Serial.print(INST_N);
-          if (INST_Code == "DAC"){                  // DAC if block and switch case structure starts here
-            switch(INST_N){
-            case 11:
-            tcaselect(2);
-            mcp4728_1.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m1); // MCP4728-1 Channel-A controls setpoint for MFC-1
-            break;
-
-            case 12:
-            tcaselect(2);
-            sp_fr_m2 = round(SP_12);
-            mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,sp_fr_m2); // MCP4728-1 Channel-A controls setpoint for MFC-2
-            break;
-
-            case 13:
-            tcaselect(2);
-            sp_fr_m3 = round(SP_12);
-            mcp4728_1.setChannelValue(MCP4728_CHANNEL_C,sp_fr_m3); // MCP4728-1 Channel-A controls setpoint for MFC-3
-            break;
-
-            case 14:
-            tcaselect(2);
-            sp_fr_m4 = round(SP_12);    
-            mcp4728_1.setChannelValue(MCP4728_CHANNEL_D,sp_fr_m4); // MCP4728-1 Channel-A controls setpoint for MFC-4
-            break;
-            
-            case 21:
-//            tcaselect(3);
-//            sp_fr_m5 = round(SP_12);
-//            mcp4728_2.setChannelValue(MCP4728_CHANNEL_A,sp_fr_m5); // MCP4728-1 Channel-A controls setpoint for MFC-5
-//            break;                    
-
-            tcaselect(4);
-            sp_fr_m5 = round(SP_12);
-            mcp4725_1.setVoltage(sp_fr_m5,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
-            Serial.print(sp_fr_m5);
-            Serial.print(";");
-            break;
-            
-            case 22:
-//            tcaselect(3);
-//            sp_p_bpr1 = round(SP_12);
-//            mcp4728_1.setChannelValue(MCP4728_CHANNEL_B,sp_p_bpr1); // MCP4728-1 Channel-A controls setpoint for BPR-1
-//            break;
-
-
-            tcaselect(5);
-            sp_p_bpr1 = round(SP_12);
-            mcp4725_2.setVoltage(0,false); // MCP4728-1 Channel-A controls setpoint for MFC-5
-            break;  
-            }
-           // mcp4728_2.setChannelValue(MCP4728_CHANNEL_C, 0);
-           // mcp4728_2.setChannelValue(MCP4728_CHANNEL_D, 0);
-          }
   //////////////////////////////////////////////////////////////////////////////////////////////////////
         // The PID code will be implemented in LabVIEW NXG
         // However, commands have been added for shutdown of Electromechanical Relays by Arduino itself if temperature crosses 70 C 
@@ -727,38 +629,37 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
         if (INST_Code == "RLY"){                        // The if Relay block and switch case starts here
         RLY_POS = inString.substring(6);
         // Serial.print(RLY_POS);
-          switch(INST_N){          
+          switch(INST_N){                      
             case 1:
             if(RLY_POS == "01ON"){digitalWrite(Relay1,LOW);}
-            else {digitalWrite(Relay1,HIGH);}
+            if(RLY_POS == "01OFF"){digitalWrite(Relay1,HIGH);}
             if(tc4.readCelsius() > 70) {digitalWrite(Relay1,HIGH);}
             break;
 
             case 2:           
             if(RLY_POS == "02ON"){digitalWrite(Relay2,LOW);}
-            else {digitalWrite(Relay2,HIGH);}
+            if(RLY_POS == "02OFF"){digitalWrite(Relay2,HIGH);}
             if(tc4.readCelsius() > 70) {digitalWrite(Relay2,HIGH);}
             break;            
 
             case 3:        
             if(RLY_POS == "03ON"){digitalWrite(Relay3,LOW);}
-            else {digitalWrite(Relay3,HIGH);}            
+            if(RLY_POS == "03OFF"){digitalWrite(Relay3,HIGH);}            
             if(tc5.readThermocoupleTemperature() > 70) {digitalWrite(Relay1,HIGH);}
             break;
 
             case 4:        
             if(RLY_POS == "04ON"){digitalWrite(Relay4,LOW);}
-            else {digitalWrite(Relay4,HIGH);
+            if(RLY_POS == "04OFF"){digitalWrite(Relay3,HIGH);}
             if(tc5.readThermocoupleTemperature() > 70) {digitalWrite(Relay4,HIGH);}
             break;
             }
           }
         }
-      }
   // 4-channel realy sub-sketch for continuous operation
   //////////////////////////////////////////////////////////////////////////////////////////////////////
-    }
 
+    }
 }
 
 /* List of Valid Serial Commands */
@@ -778,7 +679,7 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
 // :PVADC21;       = PT-1            = Pressure                  = Pressure Transducer -> @Analog Input to ADS1115
 // :PVADC22;       = PT-2            = Pressure                  = Pressure Transducer -> @Analog Input to ADS1115
 // :PVADC31;       = NDIR            = Ammonia Concentration     = NDIR Ammonia Detector -> @Analog Input to ADS1115
-// :PVADC32;       = ------------------------------------Channel Open------------------------------------
+// :PVADC32;       = ------------------------------------Channel Open------------------------------------------------------
 // :PV_TC01;       = TC-1            = Temperature               = Thermocouple, K-type Probe
 // :PV_TC02;       = TC-2            = Temperature               = Thermocouple, K-type Probe
 // :PV_TC03;       = TC-3            = Temperature               = Thermocouple, K-type Probe
@@ -787,18 +688,22 @@ Use INST_N to determine the correct Switch case so the appropriate commands can 
 // :PV_TC06;       = TC-6            = Temperature               = Thermocouple, K-type Probe
 // :PV_TC07;       = TC-7            = Temperature               = Thermocouple, K-type Probe
 //-------------------------------------------------------------------------------------------------------------------------
-//All the write commands are listed in the table bellow--------------------------------------------------------------------
+//All the print commands are listed in the table bellow--------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------
 // :SVDAC11nn.nn;  = MFC-1           = Mass Flow Rate            = Mass Flow Controller -> @Analog Output from MCP4728
 // :SVDAC12nn.nn;  = MFC-2           = Mass Flow Rate            = Mass Flow Controller -> @Analog Output from MCP4728
 // :SVDAC13nn.nn;  = MFC-3           = Mass Flow Rate            = Mass Flow Controller -> @Analog Output from MCP4728
 // :SVDAC14nn.nn;  = MFC-4           = Mass Flow Rate            = Mass Flow Controller -> @Analog Output from MCP4728
-// :SVDAC21nn.nn;  = MFC-5           = Mass Flow Rate            = Mass Flow Controller -> @Analog Output from MCP4728
-// :SVDAC22nn.nn;  = BPR-1           = Pressure                  = Back Pressure Regulator -> @Analog Output from MCP4728
+// :SVDAC21nn.nn;  = MFC-5           = Mass Flow Rate            = Mass Flow Controller -> @Analog Output from MCP4725
+// :SVDAC22nn.nn;  = BPR-1           = Pressure                  = Back Pressure Regulator -> @Analog Output from MCP4725
 // :SVDAC23nn.nn;  = ------------------------------------Analog Output Channel Open----------------------
 // :SVDAC24nn.nn;  = ------------------------------------Analog Output Channel Open----------------------
 // :SVRLY01ON;     = Relay-1         = On/Off State              = Electromechanical Relay -> For Off state, :SVRYLY01OFF;
 // :SVRLY02ON;     = Relay-2         = On/Off State              = Electromechanical Relay -> For Off state, :SVRYLY02OFF;
 // :SVRLY03ON;     = Relay-3         = On/Off State              = Electromechanical Relay -> For Off state, :SVRYLY03OFF;
 // :SVRLY04ON;     = Relay-4         = On/Off State              = Electromechanical Relay -> For Off state, :SVRYLY04OFF;
+// :SVRLY00OFF;    = Relat-1,2,3,4   = Off State                 = Commands to set all relays off 
 //-------------------------------------------------------------------------------------------------------------------------
+//Arduino board soft "Reset" function--------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------
+// :RST;
